@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom'
 import SynthItem from './SynthItem';
+import Button from '@material-ui/core/Button';
 
 function UserPage(props) {
     const history = useHistory()
@@ -15,12 +16,12 @@ function UserPage(props) {
 
     return(
         <div>
-            <button onClick={handleLogout}>Logout Button</button>
+            <Button onClick={handleLogout} variant="contained">Logout Button</Button>
             <br></br>
             USER PAGE
             <SynthItem />
             <br></br>
-            <button onClick={handleEdit}>Create New Synth</button>
+            <Button onClick={handleEdit} variant="contained">Create New Synth</Button>
         </div>
     )
 }

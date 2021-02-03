@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 
 function Login(props) {
     const history = useHistory()
@@ -12,7 +13,7 @@ function Login(props) {
         <div>
             LOGIN PAGE
             <br></br>
-            <button onClick={handleLogin}>login button</button>
+            <Button onClick={handleLogin} variant="contained" >Login Button</Button>
         </div>
     )
 }

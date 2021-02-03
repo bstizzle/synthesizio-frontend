@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom'
 import AudioVisualiser from './AudioVisualiser';
 import SynthForm from './SynthForm';
+import Button from '@material-ui/core/Button';
+
 
 function SynthEditor(props) {
     const history = useHistory();
@@ -16,13 +18,13 @@ function SynthEditor(props) {
 
     return(
         <div>
-            <button onClick={handleLogout}>Logout Button</button>
+            <Button onClick={handleLogout} variant="contained">Logout Button</Button>
             <br></br>
             SYNTH EDITOR PAGE
             <AudioVisualiser />
             <SynthForm />
             <br></br>
-            <button onClick={handleSave}>Save/Create/Back Button</button>
+            <Button onClick={handleSave} variant="contained">Save/Create/Back Button</Button>
         </div>
     )
 }

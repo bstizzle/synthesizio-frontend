@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import SynthItem from './SynthItem';
 import Button from '@material-ui/core/Button';
 
-function UserPage(props) {
+function UserPage({ synths }) {
     const history = useHistory()
 
     function handleEdit(){

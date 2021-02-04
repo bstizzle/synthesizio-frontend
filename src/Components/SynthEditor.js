@@ -1,32 +1,51 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom'
+import React, { Component } from 'react';
+import { withRouter } from "react-router-dom";
 import AudioVisualiser from './AudioVisualiser';
 import SynthForm from './SynthForm';
 import Button from '@material-ui/core/Button';
 
 
-function SynthEditor(props) {
-    const history = useHistory();
+class SynthEditor extends Component {
+    constructor(props) {
+        super(props);
+        console.log(this.props.history)
+        this.state = { audioData: new Uint8Array(0) };
+        // this.tick = this.tick.bind(this);
+    };
 
-    function handleLogout(){
-        history.push('/')
-    }
+    handleLogout = () => {
+        this.props.history.push('/')
+    };
 
-    function handleSave(){
-        history.push('/userpage')
-    }
+    handleSave = () => {
+        this.props.history.push('/userpage')
+    };
 
-    return(
-        <div>
-            <Button onClick={handleLogout} variant="contained">Logout Button</Button>
-            <br></br>
-            SYNTH EDITOR PAGE
-            <AudioVisualiser />
-            <SynthForm />
-            <br></br>
-            <Button onClick={handleSave} variant="contained">Save/Create/Back Button</Button>
-        </div>
-    )
+    // componentDidMount(){
+
+    // }
+
+    // componentDidUpdate(){
+
+    // }
+
+    // componentWillUnmount(){
+
+    // }
+
+    render(){
+        return(
+            <div>
+                <Button onClick={this.handleLogout} variant="contained">Logout Button</Button>
+                <br></br>
+                SYNTH EDITOR PAGE
+                <AudioVisualiser />
+                <SynthForm />
+                <br></br>
+                <Button onClick={this.handleSave} variant="contained">Save/Create/Back Button</Button>
+            </div>
+        );
+    };
 }
 
-export default SynthEditor;
+export default withRouter(SynthEditor);

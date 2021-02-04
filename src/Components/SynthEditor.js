@@ -4,7 +4,6 @@ import AudioVisualiser from './AudioVisualiser';
 import SynthForm from './SynthForm';
 import Button from '@material-ui/core/Button';
 
-
 class SynthEditor extends Component {
     constructor(props) {
         super(props);
@@ -25,13 +24,14 @@ class SynthEditor extends Component {
     handleMute = () => {
         if(this.state.mute === false){
             this.oscGain.gain.setValueAtTime(0, this.audioContext.currentTime); 
-            this.distGain.gain.setValueAtTime(0, this.audioContext.currentTime); 
             this.setState({mute: true});
         }else{
             this.oscGain.gain.setValueAtTime(this.synth.osc_gain, this.audioContext.currentTime); 
-            this.distGain.gain.setValueAtTime(this.synth.distortion_gain, this.audioContext.currentTime); 
             this.setState({mute: false});
         }
+        console.log(this.distortion.curve[0])
+        console.log(this.softDistortionCurve(this.synth.distortion_gain)[0])
+        console.log(this.hardDistortionCurve(this.synth.distortion_gain)[0])
     }
 
     softDistortionCurve( amount ) {
@@ -48,7 +48,27 @@ class SynthEditor extends Component {
         return curve;
     }
 
+    hardDistortionCurve( amount ){
+        let k = amount;
+        let n_samples = 44100;
+        let curve = new Float32Array(n_samples);
+        let i = 0;
+        let x;
+        for ( ; i < n_samples; ++i ) {
+            x = i * 2 / n_samples - 1;
+            curve[i] = ((3 + k) * Math.sin(x) * Math.cos(x)) - 4;
+        }
+        return curve;
+    }
+
     componentDidMount(){
+        const real = new Float32Array(2);
+        const imag = new Float32Array(2);
+        real[0] = 0;
+        imag[0] = 0;
+        real[1] = 1;
+        imag[1] = 0;
+
         //initialize audio context node, analyser node, and frequency data array
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.analyser = this.audioContext.createAnalyser();
@@ -59,24 +79,28 @@ class SynthEditor extends Component {
         this.osc1.type = this.osc1.type = 'sine';
         this.osc1.frequency.setValueAtTime(55, this.audioContext.currentTime); 
 
+        // this.wave = this.audioContext.createPeriodicWave(real, imag, {disableNormalization: true});
+        // this.osc1.setPeriodicWave(this.wave)
+
         //initialize oscillator gain node
         this.oscGain = this.audioContext.createGain();
-        this.oscGain.gain.setValueAtTime(0.1, this.audioContext.currentTime); 
+        this.oscGain.gain.setValueAtTime(0.1, this.audioContext.currentTime);
 
         //initialize distortion node
         this.distortion = this.audioContext.createWaveShaper();
         this.distortion.curve = this.softDistortionCurve(0);
 
-        //initialize distortion gain node
-        this.distGain = this.audioContext.createGain();
-        this.distGain.gain.setValueAtTime(0.1, this.audioContext.currentTime);
-
         //connect signal flow
+        // this.osc1.connect(this.distortion)
+        // this.distortion.connect(this.audioContext.destination);
         this.osc1.connect(this.oscGain);
+        // this.oscGain.connect(this.analyser)
+
+        // this.oscGain.connect(this.audioContext.destination)
+
         this.oscGain.connect(this.distortion)
-        this.distortion.connect(this.distGain)
-        this.distGain.connect(this.analyser)
-        this.distGain.connect(this.audioContext.destination)
+        this.distortion.connect(this.analyser)
+        this.distortion.connect(this.audioContext.destination)
         this.osc1.start();
         this.rafId = requestAnimationFrame(this.tick);
     }
@@ -85,13 +109,17 @@ class SynthEditor extends Component {
         //update pararms
         this.osc1.type = this.synth.osc_type_1;
         this.osc1.frequency.setValueAtTime(this.synth.osc_freq_1, this.audioContext.currentTime);
-        this.distortion.curve = this.softDistortionCurve(this.synth.dist);
+        if(this.synth.distortion_curve === 'soft' && this.softDistortionCurve(this.synth.distortion_gain)[0] !== this.distortion.curve[0]){
+            this.distortion.curve = this.softDistortionCurve(this.synth.distortion_gain);
+        }else if(this.synth.distortion_curve === 'hard' && this.hardDistortionCurve(this.synth.distortion_gain)[0] !== this.distortion.curve[0]){
+            this.distortion.curve = this.hardDistortionCurve(this.synth.distortion_gain);
+        }
+        // console.log(this.distortion.curve)
         if(this.state.mute === true){
             this.oscGain.gain.setValueAtTime(0, this.audioContext.currentTime); 
-            this.distGain.gain.setValueAtTime(0, this.audioContext.currentTime); 
         }else{
             this.oscGain.gain.setValueAtTime(this.synth.osc_gain, this.audioContext.currentTime);
-            this.distGain.gain.setValueAtTime(this.synth.distortion_gain, this.audioContext.currentTime);
+            // this.oscGain.gain.setTargetAtTime(0, this.audioContext.currentTime, 0.015);
         }
     }
 

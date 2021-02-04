@@ -93,7 +93,7 @@ class SynthEditor extends Component {
         this.distortion.connect(this.analyser)
         this.distortion.connect(this.audioContext.destination)
         this.osc1.start();
-        this.osc2.start();
+        // this.osc2.start();
         this.rafId = requestAnimationFrame(this.tick);
     }
 
@@ -104,12 +104,14 @@ class SynthEditor extends Component {
         this.osc2.type = this.synth.osc_type_2;
         this.osc2.frequency.setValueAtTime(this.synth.osc_freq_2, this.audioContext.currentTime);
 
+        //update these conditionally, because if they set every time (even if the value doesnt actually change) it causes clicking
         if(this.synth.distortion_curve === 'soft' && this.softDistortionCurve(this.synth.distortion_gain)[0] !== this.distortion.curve[0]){
             this.distortion.curve = this.softDistortionCurve(this.synth.distortion_gain);
         }else if(this.synth.distortion_curve === 'hard' && this.hardDistortionCurve(this.synth.distortion_gain)[0] !== this.distortion.curve[0]){
             this.distortion.curve = this.hardDistortionCurve(this.synth.distortion_gain);
         }
 
+        //keeps the sound muted
         if(this.state.mute === true){
             this.oscGain.gain.setValueAtTime(0, this.audioContext.currentTime); 
         }else{
@@ -127,7 +129,7 @@ class SynthEditor extends Component {
         cancelAnimationFrame(this.rafId);
         this.analyser.disconnect();
         this.osc1.stop();
-        this.osc2.stop();
+        // this.osc2.stop();
     }
 
     render(){
@@ -139,7 +141,7 @@ class SynthEditor extends Component {
                 <br></br>
                 <Button onClick={this.handleMute} variant="contained">Mute</Button>
                 <br></br>
-                <AudioVisualiser />
+                <AudioVisualiser audioData={this.dataArray} analyser={this.analyser} />
                 <SynthForm />
                 <br></br>
                 <Button onClick={this.handleSave} variant="contained">Save/Create/Back Button</Button>

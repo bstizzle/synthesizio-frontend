@@ -35,7 +35,7 @@ function App() {
       </Route>
       
       <Route path = '/syntheditor'>
-        <SynthEditor history={history} />
+        <SynthEditor history={history} synth={synths[0]} />
       </Route>
 
       <Route path = '/userpage'>

@@ -29,9 +29,6 @@ class SynthEditor extends Component {
             this.oscGain.gain.setValueAtTime(this.synth.osc_gain, this.audioContext.currentTime); 
             this.setState({mute: false});
         }
-        console.log(this.distortion.curve[0])
-        console.log(this.softDistortionCurve(this.synth.distortion_gain)[0])
-        console.log(this.hardDistortionCurve(this.synth.distortion_gain)[0])
     }
 
     softDistortionCurve( amount ) {
@@ -62,13 +59,6 @@ class SynthEditor extends Component {
     }
 
     componentDidMount(){
-        const real = new Float32Array(2);
-        const imag = new Float32Array(2);
-        real[0] = 0;
-        imag[0] = 0;
-        real[1] = 1;
-        imag[1] = 0;
-
         //initialize audio context node, analyser node, and frequency data array
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.analyser = this.audioContext.createAnalyser();
@@ -79,9 +69,6 @@ class SynthEditor extends Component {
         this.osc1.type = this.osc1.type = 'sine';
         this.osc1.frequency.setValueAtTime(55, this.audioContext.currentTime); 
 
-        // this.wave = this.audioContext.createPeriodicWave(real, imag, {disableNormalization: true});
-        // this.osc1.setPeriodicWave(this.wave)
-
         //initialize oscillator gain node
         this.oscGain = this.audioContext.createGain();
         this.oscGain.gain.setValueAtTime(0.1, this.audioContext.currentTime);
@@ -91,13 +78,7 @@ class SynthEditor extends Component {
         this.distortion.curve = this.softDistortionCurve(0);
 
         //connect signal flow
-        // this.osc1.connect(this.distortion)
-        // this.distortion.connect(this.audioContext.destination);
         this.osc1.connect(this.oscGain);
-        // this.oscGain.connect(this.analyser)
-
-        // this.oscGain.connect(this.audioContext.destination)
-
         this.oscGain.connect(this.distortion)
         this.distortion.connect(this.analyser)
         this.distortion.connect(this.audioContext.destination)
@@ -109,17 +90,17 @@ class SynthEditor extends Component {
         //update pararms
         this.osc1.type = this.synth.osc_type_1;
         this.osc1.frequency.setValueAtTime(this.synth.osc_freq_1, this.audioContext.currentTime);
+        
         if(this.synth.distortion_curve === 'soft' && this.softDistortionCurve(this.synth.distortion_gain)[0] !== this.distortion.curve[0]){
             this.distortion.curve = this.softDistortionCurve(this.synth.distortion_gain);
         }else if(this.synth.distortion_curve === 'hard' && this.hardDistortionCurve(this.synth.distortion_gain)[0] !== this.distortion.curve[0]){
             this.distortion.curve = this.hardDistortionCurve(this.synth.distortion_gain);
         }
-        // console.log(this.distortion.curve)
+
         if(this.state.mute === true){
             this.oscGain.gain.setValueAtTime(0, this.audioContext.currentTime); 
         }else{
             this.oscGain.gain.setValueAtTime(this.synth.osc_gain, this.audioContext.currentTime);
-            // this.oscGain.gain.setTargetAtTime(0, this.audioContext.currentTime, 0.015);
         }
     }
 

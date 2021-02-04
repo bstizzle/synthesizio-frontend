@@ -29,6 +29,10 @@ class SynthEditor extends Component {
             this.oscGain.gain.setValueAtTime(this.synth.osc_gain, this.audioContext.currentTime); 
             this.setState({mute: false});
         }
+        console.log(this.synth.osc_type_2)
+        console.log(this.osc2.type)
+        console.log(this.synth.osc_freq_2)
+        console.log(this.osc2.frequency)
     }
 
     softDistortionCurve( amount ) {
@@ -66,8 +70,13 @@ class SynthEditor extends Component {
 
         //initialized oscillator nodes
         this.osc1 = this.audioContext.createOscillator();
-        this.osc1.type = this.osc1.type = 'sine';
+        this.osc1.type = 'sine';
         this.osc1.frequency.setValueAtTime(55, this.audioContext.currentTime); 
+
+        this.osc2 = this.audioContext.createOscillator();
+        this.osc2.type = 'sawtooth';
+        this.osc2.frequency.setValueAtTime(55, this.audioContext.currentTime); 
+        console.log(this.osc2.frequency)
 
         //initialize oscillator gain node
         this.oscGain = this.audioContext.createGain();
@@ -79,10 +88,12 @@ class SynthEditor extends Component {
 
         //connect signal flow
         this.osc1.connect(this.oscGain);
+        this.osc2.connect(this.oscGain);
         this.oscGain.connect(this.distortion)
         this.distortion.connect(this.analyser)
         this.distortion.connect(this.audioContext.destination)
         this.osc1.start();
+        this.osc2.start();
         this.rafId = requestAnimationFrame(this.tick);
     }
 
@@ -90,7 +101,9 @@ class SynthEditor extends Component {
         //update pararms
         this.osc1.type = this.synth.osc_type_1;
         this.osc1.frequency.setValueAtTime(this.synth.osc_freq_1, this.audioContext.currentTime);
-        
+        this.osc2.type = this.synth.osc_type_2;
+        this.osc2.frequency.setValueAtTime(this.synth.osc_freq_2, this.audioContext.currentTime);
+
         if(this.synth.distortion_curve === 'soft' && this.softDistortionCurve(this.synth.distortion_gain)[0] !== this.distortion.curve[0]){
             this.distortion.curve = this.softDistortionCurve(this.synth.distortion_gain);
         }else if(this.synth.distortion_curve === 'hard' && this.hardDistortionCurve(this.synth.distortion_gain)[0] !== this.distortion.curve[0]){
@@ -114,6 +127,7 @@ class SynthEditor extends Component {
         cancelAnimationFrame(this.rafId);
         this.analyser.disconnect();
         this.osc1.stop();
+        this.osc2.stop();
     }
 
     render(){

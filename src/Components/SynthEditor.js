@@ -49,6 +49,18 @@ class SynthEditor extends Component {
         this.synth.osc_type_2 = newType
     }
 
+    handleGainChange = (newGain) => {
+        this.synth.osc_gain = newGain
+    }
+
+    handleDistCurveChange = (newCurve) => {
+        this.synth.distortion_curve = newCurve
+    }
+
+    handleDistGainChange = (newGain) => {
+        this.synth.distortion_gain = newGain
+    }
+
     //distortion formulas
     softDistortionCurve( amount ) {
         let k = (typeof amount === 'number' ? amount : 0);
@@ -162,6 +174,9 @@ class SynthEditor extends Component {
                     onFreq2Change={this.handleFreq2Change}
                     onType1Change={this.handleType1Change}
                     onType2Change={this.handleType2Change}
+                    onGainChange={this.handleGainChange}
+                    onDistCurveChange={this.handleDistCurveChange}
+                    onDistGainChange={this.handleDistGainChange}
                 />
                 <br></br>
                 <Button onClick={this.handleSave} variant="contained">Save/Create/Back Button</Button>

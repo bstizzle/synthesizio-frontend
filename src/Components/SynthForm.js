@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
@@ -63,9 +62,8 @@ function SynthForm({onFreq1Change, onFreq2Change, onType1Change, onType2Change, 
     }
 
     const changeDistToggle = () => {
-        const newToggle = !distToggle
-        setDistToggle(newToggle)
-        onDistToggle(newToggle)
+        setDistToggle(!distToggle)
+        onDistToggle()
     }
 
 /////////////////////// Material-UI styling

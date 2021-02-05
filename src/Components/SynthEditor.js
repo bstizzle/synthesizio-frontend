@@ -9,7 +9,7 @@ class SynthEditor extends Component {
         super(props);
         console.log(props)
         //set up default synth if no synth is passed as a prop
-        if(typeof this.props.synth !== undefined){
+        if(this.props.synth){
             this.synth = this.props.synth;
         }else{
             this.synth = {
@@ -24,6 +24,7 @@ class SynthEditor extends Component {
                 "delay_length": 0,
             }
         }
+        console.log(this.synth)
         this.state = { audioData: new Uint8Array(0), mute: true };
         this.tick = this.tick.bind(this);
     };

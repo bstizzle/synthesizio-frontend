@@ -1,16 +1,18 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 
-function SynthItem({synth}) {
+function SynthItem({synth, onSetCurrentSynth}) {
+    const history = useHistory()
+
+    function handleEdit(){
+        onSetCurrentSynth(synth)
+        history.push('/syntheditor')
+    }
 
     return(
         <div>
-            <h1>SYNTH NAME</h1>
-            <ul>
-                <li>{synth.osc_freq_1}</li>
-                <li>{synth.osc_freq_2}</li>
-                <li>{synth.osc_type_1}</li>
-                <li>{synth.osc_type_2}</li>
-            </ul>
+            <Button onClick={handleEdit} variant="contained" color="primary">{synth.name}</Button>
         </div>
     )
 }

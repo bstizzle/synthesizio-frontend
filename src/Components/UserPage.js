@@ -6,8 +6,7 @@ import Button from '@material-ui/core/Button';
 function UserPage({ synths, onSetCurrentSynth }) {
     const history = useHistory()
 
-    function handleEdit(){
-        // onSetCurrentSynth()
+    function handleNew(){
         history.push('/syntheditor')
     }
 
@@ -16,7 +15,7 @@ function UserPage({ synths, onSetCurrentSynth }) {
     }
 
     const synthItems = synths.map((synth) => {
-        return <SynthItem key={synth.id} synth={synth} />;
+        return <SynthItem key={synth.id} synth={synth} onSetCurrentSynth={onSetCurrentSynth} />;
     })
 
     return(
@@ -26,7 +25,7 @@ function UserPage({ synths, onSetCurrentSynth }) {
             USER PAGE
             {synthItems}
             <br></br>
-            <Button onClick={handleEdit} variant="contained">Create New Synth</Button>
+            <Button onClick={handleNew} variant="contained">Create New Synth</Button>
         </div>
     )
 }

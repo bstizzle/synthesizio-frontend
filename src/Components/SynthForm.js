@@ -5,8 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
-function SynthForm({onFreq1Change, onFreq2Change, onType1Change, onType2Change, onGainChange, onDistCurveChange, onDistGainChange, synth: {osc_type_1, osc_type_2, osc_freq_1, osc_freq_2, osc_gain, distortion_curve, distortion_gain, delay_length}}) {
+function SynthForm({onFreq1Change, onFreq2Change, onType1Change, onType2Change, onGainChange, onDistCurveChange, onDistGainChange, onDistToggle, synth: {osc_type_1, osc_type_2, osc_freq_1, osc_freq_2, osc_gain, distortion_toggle, distortion_curve, distortion_gain, delay_length}}) {
     const [freqSlider1, setFreqSlider1] = useState({x: 49});
     const [freqSlider2, setFreqSlider2] = useState({x: 49});
     const [type1, setType1] = useState(osc_type_1);
@@ -14,6 +17,7 @@ function SynthForm({onFreq1Change, onFreq2Change, onType1Change, onType2Change, 
     const [gain, setGain] = useState({x: 0});
     const [distCurve, setDistCurve] = useState(distortion_curve);
     const [distGain, setDistGain] = useState({x: distortion_gain})
+    const [distToggle, setDistToggle] = useState(distortion_toggle)
 
     //formula for moving up and down western music notes by frequency
     const twelfthTwo = Math.pow(2, 1/12);
@@ -56,6 +60,12 @@ function SynthForm({onFreq1Change, onFreq2Change, onType1Change, onType2Change, 
         const newGain = x.x
         setDistGain(x)
         onDistGainChange(newGain)
+    }
+
+    const changeDistToggle = () => {
+        const newToggle = !distToggle
+        setDistToggle(newToggle)
+        onDistToggle(newToggle)
     }
 
 /////////////////////// Material-UI styling
@@ -115,6 +125,11 @@ function SynthForm({onFreq1Change, onFreq2Change, onType1Change, onType2Change, 
                 <option value='square'>Square</option>
                 </Select>
             </FormControl>
+            <br></br>
+            <FormControlLabel
+                control={<Switch checked={distToggle} onChange={changeDistToggle} name="distToggle" />}
+                label="Secondary"
+            />
             <br></br>
             <FormControl className={classes.formControl}>
                 <InputLabel>Distortion Curve</InputLabel>

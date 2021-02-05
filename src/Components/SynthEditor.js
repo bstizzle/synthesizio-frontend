@@ -18,6 +18,7 @@ class SynthEditor extends Component {
                 "osc_freq_1": 220.0,
                 "osc_freq_2": 440.0,
                 "osc_gain": 0.1,
+                "distortion_toggle": false,
                 "distortion_curve": "soft",
                 "distortion_gain": 0,
                 "delay_length": 0,
@@ -101,6 +102,12 @@ class SynthEditor extends Component {
     handleDistGainChange = (newGain) => {
         this.synth.distortion_gain = newGain
     }
+
+    handleDistToggle = () => {
+        console.log(this.synth.distortion_toggle)
+        this.synth.distortion_toggle = !this.synth.distortion_toggle
+        console.log(this.synth.distortion_toggle)
+    }
     //end of form methods
 
     //distortion formulas
@@ -159,9 +166,14 @@ class SynthEditor extends Component {
         //connect signal flow
         this.osc1.connect(this.oscGain);
         this.osc2.connect(this.oscGain);
-        this.oscGain.connect(this.distortion)
-        this.distortion.connect(this.analyser)
-        this.distortion.connect(this.audioContext.destination)
+        if(this.synth.distortion_toggle === true) {
+            this.oscGain.connect(this.distortion);
+            this.distortion.connect(this.analyser);
+            this.distortion.connect(this.audioContext.destination);
+        }else {
+            this.oscGain.connect(this.analyser);
+            this.oscGain.connect(this.audioContext.destination);
+        }
         this.osc1.start();
         this.osc2.start();
         this.rafId = requestAnimationFrame(this.tick);
@@ -175,10 +187,32 @@ class SynthEditor extends Component {
         this.osc2.frequency.setValueAtTime(this.synth.osc_freq_2, this.audioContext.currentTime);
 
         //update these conditionally, because if they set every time (even if the value doesnt actually change) it causes clicking
+        //this conditional makes it only change if the curve was changed, rather than resetting it every loop
         if(this.synth.distortion_curve === 'soft' && this.softDistortionCurve(this.synth.distortion_gain)[0] !== this.distortion.curve[0]){
             this.distortion.curve = this.softDistortionCurve(this.synth.distortion_gain);
         }else if(this.synth.distortion_curve === 'hard' && this.hardDistortionCurve(this.synth.distortion_gain)[0] !== this.distortion.curve[0]){
             this.distortion.curve = this.hardDistortionCurve(this.synth.distortion_gain);
+        }
+
+        //have to be very careful with how we disconnect and reconnect the audio nodes
+        if(this.synth.distortion_toggle === true) {
+            //disconnect down the chain
+            this.analyser.disconnect();
+            this.oscGain.disconnect();
+
+            //recconect up with distortion in the path
+            this.oscGain.connect(this.distortion);
+            this.distortion.connect(this.analyser);
+            this.distortion.connect(this.audioContext.destination);
+        }else {
+            //disconnect down the chain
+            this.analyser.disconnect();
+            this.distortion.disconnect();
+            this.oscGain.disconnect();
+
+            //recconect up without distortion in the path
+            this.oscGain.connect(this.analyser);
+            this.oscGain.connect(this.audioContext.destination);
         }
 
         //keeps the sound muted
@@ -221,6 +255,7 @@ class SynthEditor extends Component {
                     onGainChange={this.handleGainChange}
                     onDistCurveChange={this.handleDistCurveChange}
                     onDistGainChange={this.handleDistGainChange}
+                    onDistToggle={this.handleDistToggle}
                 />
                 <br></br>
                 <Button onClick={this.handleSynthSubmit} variant="contained">{this.synth.id ? "Save Synth" : "Create Synth"}</Button>

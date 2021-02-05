@@ -4,6 +4,7 @@ import Slider from 'react-input-slider';
 function SynthForm({onFreq1Change, synth: {osc_type_1, osc_type_2, osc_freq_1, osc_freq_2, osc_gain, distortion_curve, distortion_gain, delay_length}}) {
     const [freqSlider1, setFreqSlider1] = useState({x: 49})
 
+    //formula for moving up and down western music notes by frequency
     const twelfthTwo = Math.pow(2, 1/12)
 
     const changeFreq1 = (x) => {

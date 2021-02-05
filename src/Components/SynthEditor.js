@@ -13,6 +13,7 @@ class SynthEditor extends Component {
         this.tick = this.tick.bind(this);
     };
 
+    //routing methods
     handleLogout = () => {
         this.props.history.push('/')
     };
@@ -31,10 +32,12 @@ class SynthEditor extends Component {
         }
     }
 
+    //form methods
     handleFreq1Change = (freq1) => {
         this.synth.osc_freq_1 = freq1
     }
 
+    //distortion formulas
     softDistortionCurve( amount ) {
         let k = (typeof amount === 'number' ? amount : 0);
         let n_samples = 44100;
@@ -93,7 +96,7 @@ class SynthEditor extends Component {
         this.distortion.connect(this.analyser)
         this.distortion.connect(this.audioContext.destination)
         this.osc1.start();
-        // this.osc2.start();
+        this.osc2.start();
         this.rafId = requestAnimationFrame(this.tick);
     }
 
@@ -129,7 +132,7 @@ class SynthEditor extends Component {
         cancelAnimationFrame(this.rafId);
         this.analyser.disconnect();
         this.osc1.stop();
-        // this.osc2.stop();
+        this.osc2.stop();
     }
 
     render(){

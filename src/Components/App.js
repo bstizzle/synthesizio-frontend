@@ -10,14 +10,13 @@ function App() {
   const [currentUser, setCurrentUser] = useState()
   const [currentSynth, setCurrentSynth] = useState()
   const history = useHistory();
-  console.log(currentSynth)
+  
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_BASE_URL}/users`)
       .then(resp => resp.json())
       .then(data => {
         console.log(data)
         setUsers(data)
-        setCurrentUser(data[1])
       })
   }, [])
 
@@ -33,7 +32,7 @@ function App() {
   return (
     <div>
       <Route exact path='/'>
-        <Login users={users} />
+        <Login users={users} onSetCurrentUser={setCurrentUser} />
       </Route>
       
       <Route path='/syntheditor'>

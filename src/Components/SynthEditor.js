@@ -33,8 +33,20 @@ class SynthEditor extends Component {
     }
 
     //form methods
-    handleFreq1Change = (freq1) => {
-        this.synth.osc_freq_1 = freq1
+    handleFreq1Change = (newFreq) => {
+        this.synth.osc_freq_1 = newFreq
+    }
+
+    handleFreq2Change = (newFrew) => {
+        this.synth.osc_freq_2 = newFrew
+    }
+
+    handleType1Change = (newType) => {
+        this.synth.osc_type_1 = newType
+    }
+
+    handleType2Change = (newType) => {
+        this.synth.osc_type_2 = newType
     }
 
     //distortion formulas
@@ -145,7 +157,12 @@ class SynthEditor extends Component {
                 <Button onClick={this.handleMute} variant="contained">Mute</Button>
                 <br></br>
                 <AudioVisualiser audioData={this.dataArray} analyser={this.analyser} />
-                <SynthForm synth={this.synth} onFreq1Change={this.handleFreq1Change} />
+                <SynthForm synth={this.synth}
+                    onFreq1Change={this.handleFreq1Change} 
+                    onFreq2Change={this.handleFreq2Change}
+                    onType1Change={this.handleType1Change}
+                    onType2Change={this.handleType2Change}
+                />
                 <br></br>
                 <Button onClick={this.handleSave} variant="contained">Save/Create/Back Button</Button>
             </div>

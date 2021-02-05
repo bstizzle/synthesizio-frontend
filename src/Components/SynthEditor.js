@@ -8,12 +8,11 @@ class SynthEditor extends Component {
     constructor(props) {
         super(props);
         console.log(props)
-        //set up default synth if no synth is passed as a prop
+        //set up default synth if no synth (this.props.synth = undefined) is passed as a prop
         if(this.props.synth){
             this.synth = this.props.synth;
         }else{
             this.synth = {
-                "id": 5,
                 "osc_type_1": "sine",
                 "osc_type_2": "sine",
                 "osc_freq_1": 220.0,
@@ -58,7 +57,7 @@ class SynthEditor extends Component {
                 body: JSON.stringify({...this.synth, user_id: this.props.currentUser.id}),
             })
             .then(resp => resp.json())
-            .then(alert("Synth Saved!"))
+            .then(alert("Synth Created!"))
         }
     }
     //end of CRUD/routing methods
@@ -206,6 +205,7 @@ class SynthEditor extends Component {
     render(){
         return(
             <div>
+                <Button onClick={this.handleUserRoute} variant="contained">User Page</Button>
                 <Button onClick={this.handleLogout} variant="contained">Logout Button</Button>
                 <br></br>
                 SYNTH EDITOR PAGE
@@ -223,7 +223,6 @@ class SynthEditor extends Component {
                     onDistGainChange={this.handleDistGainChange}
                 />
                 <br></br>
-                <Button onClick={this.handleUserRoute} variant="contained">User Page</Button>
                 <Button onClick={this.handleSynthSubmit} variant="contained">{this.synth.id ? "Save Synth" : "Create Synth"}</Button>
             </div>
         );

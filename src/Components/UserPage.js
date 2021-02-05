@@ -7,6 +7,7 @@ function UserPage({ synths, onSetCurrentSynth }) {
     const history = useHistory()
 
     function handleNew(){
+        onSetCurrentSynth(undefined)
         history.push('/syntheditor')
     }
 

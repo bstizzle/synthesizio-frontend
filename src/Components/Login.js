@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 
-function Login(props) {
+function Login({ users }) {
     const history = useHistory()
 
     function handleLogin(){

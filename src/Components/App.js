@@ -31,7 +31,7 @@ function App() {
   return (
     <div>
       <Route exact path= '/'>
-        <Login />
+        <Login users={users} />
       </Route>
       
       <Route path = '/syntheditor'>

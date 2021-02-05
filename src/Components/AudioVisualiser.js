@@ -22,7 +22,7 @@ class AudioVisualiser extends Component {
         context.clearRect(0, 0, width, height);
 
         analyser.getByteFrequencyData(dataArray);
-
+        
         context.fillStyle = 'rgb(0, 0, 0)';
         context.fillRect(0, 0, width, height);
 

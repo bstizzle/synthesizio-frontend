@@ -9,7 +9,7 @@ class SynthEditor extends Component {
         super(props);
         console.log(props)
         this.synth = this.props.synth;
-        this.state = { audioData: new Uint8Array(0), mute: false };
+        this.state = { audioData: new Uint8Array(0), mute: true };
         this.tick = this.tick.bind(this);
     };
 
@@ -29,10 +29,10 @@ class SynthEditor extends Component {
             this.oscGain.gain.setValueAtTime(this.synth.osc_gain, this.audioContext.currentTime); 
             this.setState({mute: false});
         }
-        console.log(this.synth.osc_type_2)
-        console.log(this.osc2.type)
-        console.log(this.synth.osc_freq_2)
-        console.log(this.osc2.frequency)
+    }
+
+    handleFreq1Change = (freq1) => {
+        this.synth.osc_freq_1 = freq1
     }
 
     softDistortionCurve( amount ) {
@@ -142,7 +142,7 @@ class SynthEditor extends Component {
                 <Button onClick={this.handleMute} variant="contained">Mute</Button>
                 <br></br>
                 <AudioVisualiser audioData={this.dataArray} analyser={this.analyser} />
-                <SynthForm />
+                <SynthForm synth={this.synth} onFreq1Change={this.handleFreq1Change} />
                 <br></br>
                 <Button onClick={this.handleSave} variant="contained">Save/Create/Back Button</Button>
             </div>

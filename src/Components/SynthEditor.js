@@ -8,7 +8,22 @@ class SynthEditor extends Component {
     constructor(props) {
         super(props);
         console.log(props)
-        this.synth = this.props.synth;
+        //set up default synth if no synth is passed as a prop
+        if(typeof this.props.synth !== undefined){
+            this.synth = this.props.synth;
+        }else{
+            this.synth = {
+                "id": 5,
+                "osc_type_1": "sine",
+                "osc_type_2": "sine",
+                "osc_freq_1": 220.0,
+                "osc_freq_2": 440.0,
+                "osc_gain": 0.1,
+                "distortion_curve": "soft",
+                "distortion_gain": 0,
+                "delay_length": 0,
+            }
+        }
         this.state = { audioData: new Uint8Array(0), mute: true };
         this.tick = this.tick.bind(this);
     };
@@ -18,9 +33,22 @@ class SynthEditor extends Component {
         this.props.history.push('/')
     };
 
-    handleSave = () => {
+    handleUserRoute = () => {
         this.props.history.push('/userpage')
     };
+
+    //CRUD methods
+    handleSynthSubmit = () => {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/synths/${this.synth.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.synth),
+      })
+        .then(resp => resp.json())
+    }
+    //end of CRUD methods
 
     handleMute = () => {
         if(this.state.mute === false){
@@ -30,7 +58,9 @@ class SynthEditor extends Component {
             this.oscGain.gain.setValueAtTime(this.synth.osc_gain, this.audioContext.currentTime); 
             this.setState({mute: false});
         }
+        console.log(this.synth)
     }
+    //end of routing methods
 
     //form methods
     handleFreq1Change = (newFreq) => {
@@ -60,6 +90,7 @@ class SynthEditor extends Component {
     handleDistGainChange = (newGain) => {
         this.synth.distortion_gain = newGain
     }
+    //end of form methods
 
     //distortion formulas
     softDistortionCurve( amount ) {
@@ -80,15 +111,16 @@ class SynthEditor extends Component {
         let k = amount;
         let n_samples = 44100;
         let curve = new Float32Array(n_samples);
-        let i = 0;
         let x;
-        for ( ; i < n_samples; ++i ) {
+        for (let i = 0; i < n_samples; ++i ) {
             x = i * 2 / n_samples - 1;
             curve[i] = ((3 + k) * Math.sin(x) * Math.cos(x)) - 4;
         }
         return curve;
     }
+    //end of distortion methods
 
+    //component mound/update/unmount methods
     componentDidMount(){
         //initialize audio context node, analyser node, and frequency data array
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -179,7 +211,8 @@ class SynthEditor extends Component {
                     onDistGainChange={this.handleDistGainChange}
                 />
                 <br></br>
-                <Button onClick={this.handleSave} variant="contained">Save/Create/Back Button</Button>
+                <Button onClick={this.handleUserRoute} variant="contained">User Page</Button>
+                <Button onClick={this.handleSynthSubmit} variant="contained">Save Synth</Button>
             </div>
         );
     };

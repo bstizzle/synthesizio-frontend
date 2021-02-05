@@ -28,7 +28,7 @@ class SynthEditor extends Component {
         this.tick = this.tick.bind(this);
     };
 
-    //routing methods
+    //CRUD/routing methods
     handleLogout = () => {
         this.props.history.push('/')
     };
@@ -37,18 +37,30 @@ class SynthEditor extends Component {
         this.props.history.push('/userpage')
     };
 
-    //CRUD methods
     handleSynthSubmit = () => {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/synths/${this.synth.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(this.synth),
-      })
-        .then(resp => resp.json())
+        if(this.synth.id) {
+            fetch(`${process.env.REACT_APP_API_BASE_URL}/synths/${this.synth.id}`, {
+                method: 'PATCH',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.synth),
+            })
+            .then(resp => resp.json())
+            .then(alert("Synth Saved!"))
+        }else {
+            fetch(`${process.env.REACT_APP_API_BASE_URL}/synths`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({...this.synth, user_id: this.props.currentUser.id}),
+            })
+            .then(resp => resp.json())
+            .then(alert("Synth Saved!"))
+        }
     }
-    //end of CRUD methods
+    //end of CRUD/routing methods
 
     handleMute = () => {
         if(this.state.mute === false){
@@ -60,7 +72,6 @@ class SynthEditor extends Component {
         }
         console.log(this.synth)
     }
-    //end of routing methods
 
     //form methods
     handleFreq1Change = (newFreq) => {
@@ -212,7 +223,7 @@ class SynthEditor extends Component {
                 />
                 <br></br>
                 <Button onClick={this.handleUserRoute} variant="contained">User Page</Button>
-                <Button onClick={this.handleSynthSubmit} variant="contained">Save Synth</Button>
+                <Button onClick={this.handleSynthSubmit} variant="contained">{this.synth.id ? "Save Synth" : "Create Synth"}</Button>
             </div>
         );
     };

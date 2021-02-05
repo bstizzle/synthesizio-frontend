@@ -7,8 +7,9 @@ import UserPage from './UserPage';
 function App() {
   const [users, setUsers] = useState([])
   const [synths, setSynths] = useState([])
+  const [currentUser, setCurrentUser] = useState()
+  const [currentSynth, setCurrentSynth] = useState()
   const history = useHistory();
-  console.log("page change")
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_BASE_URL}/users`)
@@ -16,6 +17,7 @@ function App() {
       .then(data => {
         console.log(data)
         setUsers(data)
+        setCurrentUser(data[1])
       })
   }, [])
 
@@ -30,16 +32,16 @@ function App() {
 
   return (
     <div>
-      <Route exact path= '/'>
+      <Route exact path='/'>
         <Login users={users} />
       </Route>
       
-      <Route path = '/syntheditor'>
-        <SynthEditor history={history} synth={synths[0]} />
+      <Route path='/syntheditor'>
+        <SynthEditor history={history} synth={currentSynth} currentUser={currentUser} />
       </Route>
 
-      <Route path = '/userpage'>
-        <UserPage synths={synths} />
+      <Route path='/userpage'>
+        <UserPage synths={synths} onSetCurrentSynth={setCurrentSynth} />
       </Route>
     </div>
   );

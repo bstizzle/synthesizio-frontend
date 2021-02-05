@@ -25,8 +25,6 @@ function Login({ users, onSetCurrentUser }) {
 
     function handleLogin(event){
         event.preventDefault();
-        console.log(username)
-        console.log(password)
         const user = users.find((user) => {
             return (user.username === username && user.password_digest === password);
         })
@@ -39,6 +37,27 @@ function Login({ users, onSetCurrentUser }) {
         }
     }
 
+    function handleSignup(event){
+        event.preventDefault();
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/users`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                password_digest: password
+            }),
+        })
+        .then(resp => resp.json())
+        .then(newUser => {
+            console.log(newUser)
+            onSetCurrentUser(newUser)
+            alert(`Thanks for joining, ${username}!`)
+            history.push('/userpage')
+        }) 
+    }
+
     return(
         <div>
             LOGIN PAGE
@@ -48,6 +67,12 @@ function Login({ users, onSetCurrentUser }) {
                 <TextField id="outlined-basic" label="Password" type='password' variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
                 <br></br>
                 <Button type='submit' variant="contained">Login</Button>
+            </form>
+            <form onSubmit={handleSignup} className={classes.root} noValidate autoComplete="off">
+                <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={e => setUsername(e.target.value)} />
+                <TextField id="outlined-basic" label="Password" type='password' variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
+                <br></br>
+                <Button type='submit' variant="contained">Signup</Button>
             </form>
         </div>
     )

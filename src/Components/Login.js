@@ -15,6 +15,11 @@ function Login({ users, onSetUsers, onSetCurrentUser }) {
 
     const history = useHistory()
 
+    const newUser = {
+        username: newUsername,
+        password: newPassword
+    }
+
     //Material-UI styling
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -56,10 +61,7 @@ function Login({ users, onSetUsers, onSetCurrentUser }) {
             headers: {
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                username: newUsername,
-                password: newPassword
-            }),
+            body: JSON.stringify(newUser),
         })
         .then(resp => resp.json())
         .then(newUser => {

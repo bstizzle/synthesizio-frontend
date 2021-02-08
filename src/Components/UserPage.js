@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import SynthItem from './SynthItem';
 import Button from '@material-ui/core/Button';
 
-function UserPage({ synths, onSetCurrentSynth }) {
-    const history = useHistory()
+function UserPage({ onSetCurrentSynth, currentUser }) {
+    const [userSynths, setUserSynths] = useState(currentUser.synths)
 
+    const history = useHistory()
+    console.log(userSynths)
+
+    //set currentSynth state to undefined, so the editor will use defaults and no primary-key-id, and go to the editor
     function handleNew(){
         onSetCurrentSynth(undefined)
         history.push('/syntheditor')
@@ -15,8 +19,9 @@ function UserPage({ synths, onSetCurrentSynth }) {
         history.push('/')
     }
 
-    const synthItems = synths.map((synth) => {
-        return <SynthItem key={synth.id} synth={synth} onSetCurrentSynth={onSetCurrentSynth} />;
+    //make a synthItem for all synths belonging to the currentUser
+    const synthItems = userSynths.map((synth) => {
+        return <SynthItem key={synth.id} synth={synth} onSetCurrentSynth={onSetCurrentSynth} userSynths={userSynths} onSetUserSynths={setUserSynths}/>;
     })
 
     return(

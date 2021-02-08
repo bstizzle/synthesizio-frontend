@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import AudioVisualiser from './AudioVisualiser';
 import SynthForm from './SynthForm';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class SynthEditor extends Component {
     constructor(props) {
@@ -58,7 +59,10 @@ class SynthEditor extends Component {
                 body: JSON.stringify({...this.synth, user_id: this.props.currentUser.id}),
             })
             .then(resp => resp.json())
-            .then(alert("Synth Created!"))
+            .then(newSynth => {
+                this.props.currentUser.synths.push(newSynth);
+                alert("Synth Created!");
+            })
         }
     }
     //end of CRUD/routing methods
@@ -107,6 +111,11 @@ class SynthEditor extends Component {
         console.log(this.synth.distortion_toggle)
         this.synth.distortion_toggle = !this.synth.distortion_toggle
         console.log(this.synth.distortion_toggle)
+    }
+
+    handleNameChange = (event) => {
+        const newName = event.target.value;
+        this.synth.name = newName;
     }
     //end of form methods
 
@@ -257,6 +266,10 @@ class SynthEditor extends Component {
                     onDistGainChange={this.handleDistGainChange}
                     onDistToggle={this.handleDistToggle}
                 />
+                <br></br>
+                -----------------------------------------------
+                <br></br>
+                <TextField id="outlined-basic" label="Synth Name" variant="outlined" value={this.synth.name} onChange={this.handleNameChange} />
                 <br></br>
                 <Button onClick={this.handleSynthSubmit} variant="contained">{this.synth.id ? "Save Synth" : "Create Synth"}</Button>
             </div>

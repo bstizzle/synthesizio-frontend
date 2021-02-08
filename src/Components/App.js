@@ -40,7 +40,7 @@ function App() {
       </Route>
 
       <Route path='/userpage'>
-        <UserPage synths={synths} onSetCurrentSynth={setCurrentSynth} />
+        <UserPage onSetCurrentSynth={setCurrentSynth} currentUser={currentUser} />
       </Route>
     </div>
   );

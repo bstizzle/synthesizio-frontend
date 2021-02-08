@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Switch from '@material-ui/core/Switch';
 
 class SynthEditor extends Component {
     constructor(props) {
@@ -30,7 +32,7 @@ class SynthEditor extends Component {
             }
         }
         console.log(this.synth)
-        this.state = { audioData: new Uint8Array(0), mute: true };
+        this.state = { audioData: new Uint8Array(0), mute: true, viewType: false };
         this.tick = this.tick.bind(this);
         this.classes = this.props.classes
     };
@@ -83,6 +85,14 @@ class SynthEditor extends Component {
         console.log(this.synth)
     }
 
+    // handleAnalyserToggle = () => {
+    //     if(this.state.viewType === true){
+    //         this.setState({viewType: false})
+    //     }else {
+    //         this.setState({viewType: true})
+    //     }
+    // }
+
     //form methods
     handleFreq1Change = (newFreq) => {
         this.synth.osc_freq_1 = newFreq
@@ -113,9 +123,7 @@ class SynthEditor extends Component {
     }
 
     handleDistToggle = () => {
-        console.log(this.synth.distortion_toggle)
         this.synth.distortion_toggle = !this.synth.distortion_toggle
-        console.log(this.synth.distortion_toggle)
     }
 
     handleNameChange = (newName) => {
@@ -280,6 +288,10 @@ class SynthEditor extends Component {
 
                     <Grid item xs={12}>
                         <Paper className={this.classes.paper}>
+                            {/* <FormControlLabel
+                                control={<Switch checked={this.state.viewType} onChange={this.handleAnalyserToggle} name="this.state.viewType" />}
+                                label="EQ/Oscilloscope"
+                            /> */}
                             <Button onClick={this.handleMute} variant="contained">Mute</Button>
                         </Paper>
                     </Grid>

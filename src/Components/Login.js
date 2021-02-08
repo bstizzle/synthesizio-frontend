@@ -7,9 +7,11 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-function Login({ users, onSetCurrentUser }) {
+function Login({ users, onSetUsers, onSetCurrentUser }) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [newUsername, setNewUsername] = useState("")
+    const [newPassword, setNewPassword] = useState("")
 
     const history = useHistory()
 
@@ -34,7 +36,8 @@ function Login({ users, onSetCurrentUser }) {
     function handleLogin(event){
         event.preventDefault();
         const user = users.find((user) => {
-            return (user.username === username && user.password_digest === password);
+            //no password auth currently, fake only
+            return (user.username === username);
         })
         if(user){
             alert(`Welcome, ${username}!`)
@@ -45,6 +48,7 @@ function Login({ users, onSetCurrentUser }) {
         }
     }
 
+    //currently no feedback for failed signup (duplicate username)
     function handleSignup(event){
         event.preventDefault();
         fetch(`${process.env.REACT_APP_API_BASE_URL}/users`, {
@@ -53,15 +57,16 @@ function Login({ users, onSetCurrentUser }) {
             'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                username: username,
-                password_digest: password
+                username: newUsername,
+                password: newPassword
             }),
         })
         .then(resp => resp.json())
         .then(newUser => {
             console.log(newUser)
             onSetCurrentUser(newUser)
-            alert(`Thanks for joining, ${username}!`)
+            onSetUsers([...users, newUser])
+            alert(`Thanks for joining, ${newUsername}!`)
             history.push('/userpage')
         }) 
     }
@@ -87,8 +92,8 @@ function Login({ users, onSetCurrentUser }) {
                 <Grid item xs={6}>
                     <Paper className={classes.paper}>
                         <form onSubmit={handleSignup} className={classes.root} noValidate autoComplete="off">
-                            <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={e => setUsername(e.target.value)} />
-                            <TextField id="outlined-basic" label="Password" type='password' variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
+                            <TextField id="outlined-basic" label="Username" variant="outlined" value={newUsername} onChange={e => setNewUsername(e.target.value)} />
+                            <TextField id="outlined-basic" label="Password" type='password' variant="outlined" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
                             <br></br>
                             <Button type='submit' variant="contained">Signup</Button>
                         </form>

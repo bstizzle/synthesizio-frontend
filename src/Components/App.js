@@ -49,7 +49,7 @@ function App() {
   return (
     <div className="app-container">
       <Route exact path='/'>
-        <Login users={users} onSetCurrentUser={setCurrentUser} />
+        <Login users={users} onSetUsers={setUsers} onSetCurrentUser={setCurrentUser} />
       </Route>
       
       <Route path='/syntheditor'>

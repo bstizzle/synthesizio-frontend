@@ -13,18 +13,30 @@ import Paper from '@material-ui/core/Paper';
 
 
 function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, onType2Change, onGainChange, onDistCurveChange, onDistGainChange, onDistToggle, synth: {name, osc_type_1, osc_type_2, osc_freq_1, osc_freq_2, osc_gain, distortion_toggle, distortion_curve, distortion_gain, delay_length}}) {
-    const [freqSlider1, setFreqSlider1] = useState({x: 49});
-    const [freqSlider2, setFreqSlider2] = useState({x: 49});
+    //formula for moving up and down western music notes by frequency/semi-tone
+    const twelfthTwo = Math.pow(2, 1/12);
+
+    //function to get the slider positions of the default frequencies
+    const setInitialFreqSlider = (frequency) => {
+        let x = 0;
+        let freq = Math.round(27.5 * Math.pow(twelfthTwo, x));
+
+        while(freq !== frequency){
+            freq = Math.round(27.5 * Math.pow(twelfthTwo, x));
+            x++;
+        }
+        return x;
+    }
+
+    const [freqSlider1, setFreqSlider1] = useState({x: setInitialFreqSlider(osc_freq_1)});
+    const [freqSlider2, setFreqSlider2] = useState({x: setInitialFreqSlider(osc_freq_2)});
     const [type1, setType1] = useState(osc_type_1);
     const [type2, setType2] = useState(osc_type_2);
-    const [gain, setGain] = useState({x: 0});
+    const [gain, setGain] = useState({x: osc_gain});
     const [distCurve, setDistCurve] = useState(distortion_curve);
     const [distGain, setDistGain] = useState({x: distortion_gain})
     const [distToggle, setDistToggle] = useState(distortion_toggle)
     const [synthName, setSynthName] = useState(name)
-
-    //formula for moving up and down western music notes by frequency
-    const twelfthTwo = Math.pow(2, 1/12);
 
     //form change handlers
     const changeGain = (x) => {

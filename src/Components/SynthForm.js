@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Slider from 'react-input-slider';
+import { freqTones } from "./HashMaps"
 
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -119,11 +120,11 @@ function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, o
                         <br></br>
                         <Slider axis="x" xstep={0.05} xmin={0} xmax={0.5} x={gain.x} onChange={x => changeGain(x)} />
                         <br></br>
-                        <label>Frequency 1: {osc_freq_1}</label>
+                        <label>Tone 1: {freqTones[freqSlider1.x]} - {osc_freq_1} Hz</label>
                         <br></br>
                         <Slider axis="x" xstep={1} xmin={0} xmax={88} x={freqSlider1.x} onChange={x => changeFreq1(x)} />
                         <br></br>
-                        <label>Frequency 2: {osc_freq_2}</label>
+                        <label>Tone 2: {freqTones[freqSlider2.x]} - {osc_freq_2} Hz</label>
                         <br></br>
                         <Slider axis="x" xstep={1} xmin={0} xmax={88} x={freqSlider2.x} onChange={x => changeFreq2(x)} />
                         <br></br>

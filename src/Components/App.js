@@ -36,11 +36,11 @@ function App() {
       </Route>
       
       <Route path='/syntheditor'>
-        <SynthEditor history={history} synth={currentSynth} currentUser={currentUser} />
+        <SynthEditor history={history} synth={currentSynth} currentUser={currentUser} synths={synths} />
       </Route>
 
       <Route path='/userpage'>
-        <UserPage onSetCurrentSynth={setCurrentSynth} currentUser={currentUser} />
+        <UserPage onSetCurrentSynth={setCurrentSynth} onSetSynths={setSynths} currentUser={currentUser} synths={synths} />
       </Route>
     </div>
   );

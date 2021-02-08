@@ -7,8 +7,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import TextField from '@material-ui/core/TextField';
 
-function SynthForm({onFreq1Change, onFreq2Change, onType1Change, onType2Change, onGainChange, onDistCurveChange, onDistGainChange, onDistToggle, synth: {osc_type_1, osc_type_2, osc_freq_1, osc_freq_2, osc_gain, distortion_toggle, distortion_curve, distortion_gain, delay_length}}) {
+function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, onType2Change, onGainChange, onDistCurveChange, onDistGainChange, onDistToggle, synth: {name, osc_type_1, osc_type_2, osc_freq_1, osc_freq_2, osc_gain, distortion_toggle, distortion_curve, distortion_gain, delay_length}}) {
     const [freqSlider1, setFreqSlider1] = useState({x: 49});
     const [freqSlider2, setFreqSlider2] = useState({x: 49});
     const [type1, setType1] = useState(osc_type_1);
@@ -17,6 +18,7 @@ function SynthForm({onFreq1Change, onFreq2Change, onType1Change, onType2Change, 
     const [distCurve, setDistCurve] = useState(distortion_curve);
     const [distGain, setDistGain] = useState({x: distortion_gain})
     const [distToggle, setDistToggle] = useState(distortion_toggle)
+    const [synthName, setSynthName] = useState(name)
 
     //formula for moving up and down western music notes by frequency
     const twelfthTwo = Math.pow(2, 1/12);
@@ -64,6 +66,11 @@ function SynthForm({onFreq1Change, onFreq2Change, onType1Change, onType2Change, 
     const changeDistToggle = () => {
         setDistToggle(!distToggle)
         onDistToggle()
+    }
+
+    const changeSynthName = (event) => {
+        setSynthName(event.target.value)
+        onNameChange(event.target.value)
     }
 
 /////////////////////// Material-UI styling
@@ -145,6 +152,9 @@ function SynthForm({onFreq1Change, onFreq2Change, onType1Change, onType2Change, 
             <br></br>
             <Slider axis="x" xstep={1} xmin={0} xmax={100} x={distGain.x} onChange={x => changeDistGain(x)} />
             <br></br>
+            ----------------------------
+            <br></br>
+            <TextField id="outlined-basic" label="Synth Name" variant="outlined" value={synthName} onChange={changeSynthName} />
         </div>
     )
 }

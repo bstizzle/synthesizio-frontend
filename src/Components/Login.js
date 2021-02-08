@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom'
+
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 function Login({ users, onSetCurrentUser }) {
     const [username, setUsername] = useState("")
@@ -17,6 +20,11 @@ function Login({ users, onSetCurrentUser }) {
                 margin: theme.spacing(1),
                 width: '25ch',
             },
+        },
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: 'center',
+            border: "3px solid red",
         },
     }));
 
@@ -59,21 +67,34 @@ function Login({ users, onSetCurrentUser }) {
     }
 
     return(
-        <div>
-            LOGIN PAGE
-            <br></br>
-            <form onSubmit={handleLogin} className={classes.root} noValidate autoComplete="off">
-                <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={e => setUsername(e.target.value)} />
-                <TextField id="outlined-basic" label="Password" type='password' variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
-                <br></br>
-                <Button type='submit' variant="contained">Login</Button>
-            </form>
-            <form onSubmit={handleSignup} className={classes.root} noValidate autoComplete="off">
-                <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={e => setUsername(e.target.value)} />
-                <TextField id="outlined-basic" label="Password" type='password' variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
-                <br></br>
-                <Button type='submit' variant="contained">Signup</Button>
-            </form>
+        <div className="page-container">
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Paper className={classes.paper}>
+                        <h1>Welcome to Synthesiz.io!</h1>
+                    </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                    <Paper className={classes.paper}>
+                        <form onSubmit={handleLogin} className={classes.root} noValidate autoComplete="off">
+                            <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={e => setUsername(e.target.value)} />
+                            <TextField id="outlined-basic" label="Password" type='password' variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
+                            <br></br>
+                            <Button type='submit' variant="contained">Login</Button>
+                        </form>
+                    </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                    <Paper className={classes.paper}>
+                        <form onSubmit={handleSignup} className={classes.root} noValidate autoComplete="off">
+                            <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={e => setUsername(e.target.value)} />
+                            <TextField id="outlined-basic" label="Password" type='password' variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
+                            <br></br>
+                            <Button type='submit' variant="contained">Signup</Button>
+                        </form>
+                    </Paper>
+                </Grid>
+            </Grid>
         </div>
     )
 }

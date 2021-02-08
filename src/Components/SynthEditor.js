@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import AudioVisualiser from './AudioVisualiser';
 import SynthForm from './SynthForm';
+
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 class SynthEditor extends Component {
     constructor(props) {
@@ -28,6 +32,7 @@ class SynthEditor extends Component {
         console.log(this.synth)
         this.state = { audioData: new Uint8Array(0), mute: true };
         this.tick = this.tick.bind(this);
+        this.classes = this.props.classes
     };
 
     //CRUD/routing methods
@@ -246,28 +251,60 @@ class SynthEditor extends Component {
 
     render(){
         return(
-            <div>
-                <Button onClick={this.handleUserRoute} variant="contained">User Page</Button>
-                <Button onClick={this.handleLogout} variant="contained">Logout Button</Button>
-                <br></br>
-                SYNTH EDITOR PAGE
-                <br></br>
-                <Button onClick={this.handleMute} variant="contained">Mute</Button>
-                <br></br>
-                <AudioVisualiser audioData={this.dataArray} analyser={this.analyser} />
-                <SynthForm synth={this.synth}
-                    onFreq1Change={this.handleFreq1Change} 
-                    onFreq2Change={this.handleFreq2Change}
-                    onType1Change={this.handleType1Change}
-                    onType2Change={this.handleType2Change}
-                    onGainChange={this.handleGainChange}
-                    onDistCurveChange={this.handleDistCurveChange}
-                    onDistGainChange={this.handleDistGainChange}
-                    onDistToggle={this.handleDistToggle}
-                    onNameChange={this.handleNameChange}
-                />
-                <br></br>
-                <Button onClick={this.handleSynthSubmit} variant="contained">{this.synth.id ? "Save Synth" : "Create Synth"}</Button>
+            <div className="page-container">
+                <Grid container direction="row" justify="center" alignItems="stretch" spacing={2}>
+                    <Grid item xs={6}>
+                        <Paper className={this.classes.paper}>
+                            <Typography variant="h3">
+                                SYNTH EDITOR
+                            </Typography>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Paper className={this.classes.paper}>
+                            <Button onClick={this.handleUserRoute} variant="contained">User Page</Button>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Paper className={this.classes.paper}>
+                            
+                            <Button onClick={this.handleLogout} variant="contained">Logout Button</Button>
+                        </Paper>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Paper className={this.classes.paper}>
+                            <AudioVisualiser audioData={this.dataArray} analyser={this.analyser} />
+                        </Paper>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Paper className={this.classes.paper}>
+                            <Button onClick={this.handleMute} variant="contained">Mute</Button>
+                        </Paper>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Paper className={this.classes.paper}>
+                            <SynthForm synth={this.synth}
+                                onFreq1Change={this.handleFreq1Change} 
+                                onFreq2Change={this.handleFreq2Change}
+                                onType1Change={this.handleType1Change}
+                                onType2Change={this.handleType2Change}
+                                onGainChange={this.handleGainChange}
+                                onDistCurveChange={this.handleDistCurveChange}
+                                onDistGainChange={this.handleDistGainChange}
+                                onDistToggle={this.handleDistToggle}
+                                onNameChange={this.handleNameChange}
+                            />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper className={this.classes.paper}>
+                            <Button onClick={this.handleSynthSubmit} variant="contained">{this.synth.id ? "Save Synth" : "Create Synth"}</Button>
+                        </Paper>
+                    </Grid>
+                </Grid>
             </div>
         );
     };

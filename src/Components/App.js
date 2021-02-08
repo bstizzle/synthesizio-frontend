@@ -4,6 +4,8 @@ import Login from './Login';
 import SynthEditor from './SynthEditor';
 import UserPage from './UserPage';
 
+import { makeStyles } from '@material-ui/core/styles';
+
 function App() {
   const [users, setUsers] = useState([])
   const [synths, setSynths] = useState([])
@@ -29,14 +31,29 @@ function App() {
       })
   }, [])
 
+  //Material-UI styles to send to class-component-style components, can't use the hooks in the class components themselves
+  const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        border: "3px solid purple",
+    },
+  }));
+
+  const classes = useStyles();
+  ///////////////////////////////////
+
   return (
-    <div>
+    <div className="app-container">
       <Route exact path='/'>
         <Login users={users} onSetCurrentUser={setCurrentUser} />
       </Route>
       
       <Route path='/syntheditor'>
-        <SynthEditor history={history} synth={currentSynth} currentUser={currentUser} synths={synths} />
+        <SynthEditor classes={classes} history={history} synth={currentSynth} currentUser={currentUser} synths={synths} />
       </Route>
 
       <Route path='/userpage'>

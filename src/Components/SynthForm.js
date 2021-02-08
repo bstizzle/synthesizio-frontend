@@ -8,6 +8,9 @@ import Select from '@material-ui/core/Select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+
 
 function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, onType2Change, onGainChange, onDistCurveChange, onDistGainChange, onDistToggle, synth: {name, osc_type_1, osc_type_2, osc_freq_1, osc_freq_2, osc_gain, distortion_toggle, distortion_curve, distortion_gain, delay_length}}) {
     const [freqSlider1, setFreqSlider1] = useState({x: 49});
@@ -82,79 +85,96 @@ function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, o
         selectEmpty: {
           marginTop: theme.spacing(2),
         },
+        root: {
+            flexGrow: 1,
+        },
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: 'center',
+            border: "3px solid red",
+        },
     }));
 
     const classes = useStyles();
 ////////////////////////////
 
     return(
-        <div>
-            SYNTH FORM
-            <br></br>
-            <label>Gain: {osc_gain}</label>
-            <br></br>
-            <Slider axis="x" xstep={0.05} xmin={0} xmax={0.5} x={gain.x} onChange={x => changeGain(x)} />
-            <br></br>
-            <label>Frequency 1: {osc_freq_1}</label>
-            <br></br>
-            <Slider axis="x" xstep={1} xmin={0} xmax={88} x={freqSlider1.x} onChange={x => changeFreq1(x)} />
-            <br></br>
-            <label>Frequency 2: {osc_freq_2}</label>
-            <br></br>
-            <Slider axis="x" xstep={1} xmin={0} xmax={88} x={freqSlider2.x} onChange={x => changeFreq2(x)} />
-            <br></br>
-            <FormControl className={classes.formControl}>
-                <InputLabel>Waveform 1</InputLabel>
-                <Select
-                    native
-                    value={type1}
-                    onChange={changeType1}
-                >
-                <option value='sine'>Sine</option>
-                <option value='triangle'>Triangle</option>
-                <option value='sawtooth'>Sawtooth</option>
-                <option value='square'>Square</option>
-                </Select>
-            </FormControl>
-            <br></br>
-            <FormControl className={classes.formControl}>
-                <InputLabel>Waveform 2</InputLabel>
-                <Select
-                    native
-                    value={type2}
-                    onChange={changeType2}
-                >
-                <option value='sine'>Sine</option>
-                <option value='triangle'>Triangle</option>
-                <option value='sawtooth'>Sawtooth</option>
-                <option value='square'>Square</option>
-                </Select>
-            </FormControl>
-            <br></br>
-            <FormControlLabel
-                control={<Switch checked={distToggle} onChange={changeDistToggle} name="distToggle" />}
-                label="Secondary"
-            />
-            <br></br>
-            <FormControl className={classes.formControl}>
-                <InputLabel>Distortion Curve</InputLabel>
-                <Select
-                    native
-                    value={distCurve}
-                    onChange={changeDistCurve}
-                >
-                <option value='soft'>Soft</option>
-                <option value='hard'>Hard</option>
-                </Select>
-            </FormControl>
-            <br></br>
-            <label>Distortion Amount: {distortion_gain}</label>
-            <br></br>
-            <Slider axis="x" xstep={1} xmin={0} xmax={100} x={distGain.x} onChange={x => changeDistGain(x)} />
-            <br></br>
-            ----------------------------
-            <br></br>
-            <TextField id="outlined-basic" label="Synth Name" variant="outlined" value={synthName} onChange={changeSynthName} />
+        <div className={classes.root}>
+            <Grid container spacing={2}>
+                <Grid item xs={6}>
+                    <Paper className={classes.paper}>
+                        <label>Gain: {osc_gain}</label>
+                        <br></br>
+                        <Slider axis="x" xstep={0.05} xmin={0} xmax={0.5} x={gain.x} onChange={x => changeGain(x)} />
+                        <br></br>
+                        <label>Frequency 1: {osc_freq_1}</label>
+                        <br></br>
+                        <Slider axis="x" xstep={1} xmin={0} xmax={88} x={freqSlider1.x} onChange={x => changeFreq1(x)} />
+                        <br></br>
+                        <label>Frequency 2: {osc_freq_2}</label>
+                        <br></br>
+                        <Slider axis="x" xstep={1} xmin={0} xmax={88} x={freqSlider2.x} onChange={x => changeFreq2(x)} />
+                        <br></br>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel>Waveform 1</InputLabel>
+                            <Select
+                                native
+                                value={type1}
+                                onChange={changeType1}
+                            >
+                            <option value='sine'>Sine</option>
+                            <option value='triangle'>Triangle</option>
+                            <option value='sawtooth'>Sawtooth</option>
+                            <option value='square'>Square</option>
+                            </Select>
+                        </FormControl>
+                        <br></br>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel>Waveform 2</InputLabel>
+                            <Select
+                                native
+                                value={type2}
+                                onChange={changeType2}
+                            >
+                            <option value='sine'>Sine</option>
+                            <option value='triangle'>Triangle</option>
+                            <option value='sawtooth'>Sawtooth</option>
+                            <option value='square'>Square</option>
+                            </Select>
+                        </FormControl>
+                    </Paper>
+                </Grid>
+                <br></br>
+                <Grid item xs={6}>
+                    <Paper className={classes.paper}>
+                        <FormControlLabel
+                            control={<Switch checked={distToggle} onChange={changeDistToggle} name="distToggle" />}
+                            label="Distortion Off/On"
+                        />
+                        <br></br>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel>Distortion Curve</InputLabel>
+                            <Select
+                                native
+                                value={distCurve}
+                                onChange={changeDistCurve}
+                            >
+                            <option value='soft'>Soft</option>
+                            <option value='hard'>Hard</option>
+                            </Select>
+                        </FormControl>
+                        <br></br>
+                        <label>Distortion Amount: {distortion_gain}</label>
+                        <br></br>
+                        <Slider axis="x" xstep={1} xmin={0} xmax={100} x={distGain.x} onChange={x => changeDistGain(x)} />
+                    </Paper>
+                </Grid>
+                <Grid item xs={12}>
+                    <Paper className={classes.paper}>
+                        <TextField id="outlined-basic" label="Synth Name" variant="outlined" value={synthName} onChange={changeSynthName} />
+                    </Paper>
+                </Grid>
+            </Grid>
         </div>
     )
 }

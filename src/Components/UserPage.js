@@ -1,7 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom'
 import SynthItem from './SynthItem';
+
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 function UserPage({ onSetCurrentSynth, currentUser, synths, onSetSynths }) {
     const history = useHistory()
@@ -32,14 +37,50 @@ function UserPage({ onSetCurrentSynth, currentUser, synths, onSetSynths }) {
         return <SynthItem onSynthDelete={handleSynthDelete} key={synth.id} synth={synth} onSetCurrentSynth={onSetCurrentSynth} />;
     })
 
+    //Material-UI styling
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            flexGrow: 1,
+        },
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: 'center',
+            border: "3px solid red",
+        },
+    }));
+
+    const classes = useStyles();
+    ///////////////////////////////////
+
     return(
-        <div>
-            <Button onClick={handleLogout} variant="contained">Logout Button</Button>
-            <br></br>
-            USER PAGE
-            {synthItems}
-            <br></br>
-            <Button onClick={handleNew} variant="contained">Create New Synth</Button>
+        <div className="page-container">
+            <Grid container spacing={2}>
+                <Grid item xs={6}>
+                    <Paper className={classes.paper}>
+                        <Typography variant="h3">
+                            USER PAGE
+                        </Typography>
+                    </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                    <Paper className={classes.paper}>
+                        <Button onClick={handleLogout} variant="contained">Logout Button</Button>
+                    </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                    <Paper className={classes.paper}>
+                        {synthItems}
+                    </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                    <Paper className={classes.paper}>
+                        <Button onClick={handleNew} variant="contained">Create New Synth</Button>
+                        <br></br>
+                        <br></br>
+                        <Button variant="contained">Browse Synths (dead button for now)</Button>
+                    </Paper>
+                </Grid>
+            </Grid>
         </div>
     )
 }

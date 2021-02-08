@@ -25,3 +25,10 @@ code {
   border: 3px solid blue;
   padding: 10px;
 }
+
+.analyser-container {
+  margin: auto;
+  text-align: center;
+  border: 3px solid lightgreen;
+  padding: 10px;
+}

@@ -87,7 +87,8 @@ class AudioVisualiser extends Component {
     render(){
         return(
             <div>
-                <canvas width="600" height="200" ref={this.canvas} />
+                <canvas className="analyser-container" width="600" height="200" ref={this.canvas} />
+                <br></br>
                 <FormControlLabel
                     control={<Switch checked={this.state.type} onChange={this.handleAnalyserToggle} name="this.state.type" />}
                     label="EQ/Oscilloscope"

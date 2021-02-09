@@ -91,7 +91,7 @@ class AudioVisualiser extends Component {
                 <br></br>
                 <FormControlLabel
                     control={<Switch checked={this.state.type} onChange={this.handleAnalyserToggle} name="this.state.type" />}
-                    label="EQ/Oscilloscope"
+                    label="Oscilloscope/EQ"
                 />
             </div>
         );

@@ -7,7 +7,7 @@ function Key({ note, frequency, index, freq1, freq2, onChangeFreq1, onChangeFreq
     let noteAccents;
     let octave;
     let keyClass = "white-key";
-    //change div class for black keys
+    //change key div class for black keys
     if(note.includes("C#") || note.includes("D#") || note.includes("F#") || note.includes("G#") || note.includes("A#")){
         keyClass = "black-key";
     }

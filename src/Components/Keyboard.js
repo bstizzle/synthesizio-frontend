@@ -2,7 +2,7 @@ import React from 'react'
 import { freqTones } from "./HashMaps";
 import Key from "./Key";
 
-function Keyboard({ onFreq1Change, onFreq2Change }){
+function Keyboard({ freq1, freq2, onFreq1Change, onFreq2Change }){
     const keyList = Object.entries(freqTones)
 
     const twelfthTwo = Math.pow(2, 1/12);
@@ -11,7 +11,7 @@ function Keyboard({ onFreq1Change, onFreq2Change }){
         const keyIndex = parseInt(key[0], 10)
         const keyFreq = Math.round((27.5 * Math.pow(twelfthTwo, keyIndex)) * 100)/100
 
-        return <Key key={keyIndex} index={keyIndex} note={key[1]} frequency={keyFreq} onChangeFreq1={onFreq1Change} onChangeFreq2={onFreq2Change} />;
+        return <Key key={keyIndex} index={keyIndex} note={key[1]} frequency={keyFreq} freq1={freq1} freq2={freq2} onChangeFreq1={onFreq1Change} onChangeFreq2={onFreq2Change} />;
     });
 
     return(

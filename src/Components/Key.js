@@ -1,7 +1,8 @@
 import React from 'react'
 
-function Key({note, frequency, index, onChangeFreq1, onChangeFreq2}) {
+function Key({ note, frequency, index, freq1, freq2, onChangeFreq1, onChangeFreq2 }) {
     //key rendering details
+    const twelfthTwo = Math.pow(2, 1/12);
     let noteLabel;
     let noteAccents;
     let octave;
@@ -30,17 +31,56 @@ function Key({note, frequency, index, onChangeFreq1, onChangeFreq2}) {
         octave = 6;
     }
     //end key rendering details
-  
+
+    //determine the interval between oscillator pitches to maintain it
+    function getOscInterval(oscFreq1, oscFreq2) {
+        let oscIndex1 = 0;
+        let freq = Math.round((27.5 * Math.pow(twelfthTwo, oscIndex1)) * 100)/100
+
+        //find freq1 index
+        while(freq !== oscFreq1){
+            freq = Math.round((27.5 * Math.pow(twelfthTwo, oscIndex1)) * 100)/100
+            oscIndex1++;
+        }
+        
+        //reset freq and find freq2 index
+        let oscIndex2 = 0;
+        freq = Math.round((27.5 * Math.pow(twelfthTwo, oscIndex2)) * 100)/100
+
+        while(freq !== oscFreq2){
+            freq = Math.round((27.5 * Math.pow(twelfthTwo, oscIndex2)) * 100)/100
+            oscIndex2++;
+        }
+
+        //return the interval
+        if(oscIndex1 > oscIndex2){
+            return oscIndex1 - oscIndex2;
+        }else{
+            return oscIndex2 - oscIndex1;
+        }
+    }
+
+    const oscInterval = getOscInterval(freq1, freq2)
+
+    function getSecondFreq(firstIndex) {
+        let secondIndex = firstIndex + oscInterval;
+        let secondFreq = Math.round((27.5 * Math.pow(twelfthTwo, secondIndex)) * 100)/100
+        return secondFreq;
+    }
+
     //event listeners
     function keyPressed(event) {
         if (event.buttons & 1) {
             let dataset = event.target.dataset;
-            console.log(dataset)
 
             if (!dataset["pressed"]) {
                 dataset["pressed"] = "yes";
+                console.log(dataset)
+                console.log(freq1)
+                let secondFreq = getSecondFreq(index)
+                console.log(secondFreq)
                 onChangeFreq1(frequency)
-                onChangeFreq2(frequency)
+                onChangeFreq2(secondFreq)
             }
         }
     }

@@ -285,7 +285,7 @@ class SynthEditor extends Component {
 
                     <Grid item xs={12}>
                         <Paper className={this.classes.paper}>
-                            <Keyboard onFreq1Change={this.handleFreq1Change} onFreq2Change={this.handleFreq2Change} />
+                            <Keyboard freq1={this.synth.osc_freq_1} freq2={this.synth.osc_freq_2} onFreq1Change={this.handleFreq1Change} onFreq2Change={this.handleFreq2Change} />
                         </Paper>
                     </Grid>
 

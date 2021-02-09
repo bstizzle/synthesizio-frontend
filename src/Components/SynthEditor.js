@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import AudioVisualiser from './AudioVisualiser';
 import SynthForm from './SynthForm';
+import Keyboard from './Keyboard';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -279,6 +280,12 @@ class SynthEditor extends Component {
                     <Grid item xs={12}>
                         <Paper className={this.classes.paper}>
                             <Button onClick={this.handleMute} variant="contained">Mute</Button>
+                        </Paper>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Paper className={this.classes.paper}>
+                            <Keyboard onFreq1Change={this.handleFreq1Change} onFreq2Change={this.handleFreq2Change} />
                         </Paper>
                     </Grid>
 

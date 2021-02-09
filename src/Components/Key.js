@@ -1,9 +1,6 @@
 import React from 'react'
 
-function Key({note, frequency, index}) {
-    const twelfthTwo = Math.pow(2, 1/12);
-    const keyFreq = Math.round((27.5 * Math.pow(twelfthTwo, index)) * 100)/100
-
+function Key({note, frequency, index, onChangeFreq1, onChangeFreq2}) {
     //key rendering details
     let noteLabel;
     let noteAccents;
@@ -42,7 +39,8 @@ function Key({note, frequency, index}) {
 
             if (!dataset["pressed"]) {
                 dataset["pressed"] = "yes";
-                console.log(dataset)
+                onChangeFreq1(frequency)
+                onChangeFreq2(frequency)
             }
         }
     }

@@ -20,10 +20,10 @@ function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, o
     //function to get the slider positions of the default frequencies
     const setInitialFreqSlider = (frequency) => {
         let x = 0;
-        let freq = Math.round(27.5 * Math.pow(twelfthTwo, x));
+        let freq = Math.round((27.5 * Math.pow(twelfthTwo, x)) * 100)/100
 
         while(freq !== frequency){
-            freq = Math.round(27.5 * Math.pow(twelfthTwo, x));
+            freq = Math.round((27.5 * Math.pow(twelfthTwo, x)) * 100)/100
             x++;
         }
         return x;
@@ -47,13 +47,13 @@ function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, o
     };
 
     const changeFreq1 = (x) => {
-        const newFreq = Math.round(27.5 * Math.pow(twelfthTwo, x.x))
+        const newFreq = Math.round((27.5 * Math.pow(twelfthTwo, x.x)) * 100)/100
         setFreqSlider1(x)
         onFreq1Change(newFreq)
     };
 
     const changeFreq2 = (x) => {
-        const newFreq = Math.round(27.5 * Math.pow(twelfthTwo, x.x))
+        const newFreq = Math.round((27.5 * Math.pow(twelfthTwo, x.x)) * 100)/100
         setFreqSlider2(x)
         onFreq2Change(newFreq)
     };

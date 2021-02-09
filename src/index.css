@@ -32,3 +32,34 @@ code {
   border: 3px solid lightgreen;
   padding: 10px;
 }
+
+.key {
+  cursor: pointer;
+  font: 16px "Open Sans", "Lucida Grande", "Arial", sans-serif;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 20px;
+  height: 80px;
+  text-align: center;
+  box-shadow: 2px 2px darkgrey;
+  display: inline-block;
+  position: relative;
+  margin-right: 3px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.key-label {
+  overflow-wrap: break-word;
+}
+
+.keyboard-container {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  width: 660px;
+  height: 110px;
+  white-space: nowrap;
+  margin: 10px;
+}

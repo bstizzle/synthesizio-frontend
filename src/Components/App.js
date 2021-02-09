@@ -3,6 +3,7 @@ import { Route, useHistory } from 'react-router-dom';
 import Login from './Login';
 import SynthEditor from './SynthEditor';
 import UserPage from './UserPage';
+import Keyboard from './Keyboard';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -50,6 +51,7 @@ function App() {
     <div className="app-container">
       <Route exact path='/'>
         <Login users={users} onSetUsers={setUsers} onSetCurrentUser={setCurrentUser} />
+        <Keyboard />
       </Route>
       
       <Route path='/syntheditor'>

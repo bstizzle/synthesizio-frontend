@@ -1,0 +1,26 @@
+import React from 'react'
+import { freqTones } from "./HashMaps";
+import Key from "./Key";
+
+function Keyboard(){
+    const keyList = Object.entries(freqTones)
+
+    const twelfthTwo = Math.pow(2, 1/12);
+
+    const fullKeyboard = keyList.map(key => {
+        const keyIndex = parseInt(key[0], 10)
+        const keyFreq = Math.round((27.5 * Math.pow(twelfthTwo, keyIndex)) * 100)/100
+
+        return <Key key={keyIndex} index={keyIndex} note={key[1]} frequency={keyFreq} />;
+    });
+
+    return(
+        <div className="keyboard-container">
+            <div className="keyboard">
+                {fullKeyboard}
+            </div>
+        </div>
+    )
+}
+
+export default Keyboard;

@@ -54,16 +54,21 @@ function Key({ note, frequency, index, freq1, freq2, onChangeFreq1, onChangeFreq
 
         //return the interval
         if(oscIndex1 > oscIndex2){
-            return oscIndex1 - oscIndex2;
+            return [oscIndex1 - oscIndex2, "descending"];
         }else{
-            return oscIndex2 - oscIndex1;
+            return [oscIndex2 - oscIndex1, "ascending"];
         }
     }
 
     const oscInterval = getOscInterval(freq1, freq2)
 
     function getSecondFreq(firstIndex) {
-        let secondIndex = firstIndex + oscInterval;
+        let secondIndex;
+        if(oscInterval[1] === "ascending"){
+            secondIndex = firstIndex + oscInterval[0];
+        }else{
+            secondIndex = firstIndex - oscInterval[0];
+        }
         let secondFreq = Math.round((27.5 * Math.pow(twelfthTwo, secondIndex)) * 100)/100
         return secondFreq;
     }

@@ -118,7 +118,7 @@ function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, o
                     <Paper className={classes.paper}>
                         <label>Gain: {osc_gain}</label>
                         <br></br>
-                        <Slider axis="x" xstep={0.05} xmin={0} xmax={0.5} x={gain.x} onChange={x => changeGain(x)} />
+                        <Slider axis="x" xstep={0.01} xmin={0} xmax={0.5} x={gain.x} onChange={x => changeGain(x)} />
                         <br></br>
                         <label>Tone 1: {freqTones[freqSlider1.x]} - {osc_freq_1} Hz</label>
                         <br></br>

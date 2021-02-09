@@ -69,6 +69,14 @@ function Key({ note, frequency, index, freq1, freq2, onChangeFreq1, onChangeFreq
         }else{
             secondIndex = firstIndex - oscInterval[0];
         }
+        //raise the frequency by an octave if it would be under of the range of the keyboard
+        while(Math.sign(secondIndex) === -1){
+            secondIndex += 12;
+        }
+         //lower the frequency by an octave if it would be over of the range of the keyboard
+        while(secondIndex > 88){
+            secondIndex -= 12;
+        }
         let secondFreq = Math.round((27.5 * Math.pow(twelfthTwo, secondIndex)) * 100)/100
         return secondFreq;
     }

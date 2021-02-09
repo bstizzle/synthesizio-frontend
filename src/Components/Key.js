@@ -6,6 +6,11 @@ function Key({ note, frequency, index, freq1, freq2, onChangeFreq1, onChangeFreq
     let noteLabel;
     let noteAccents;
     let octave;
+    let keyClass = "white-key";
+    //change div class for black keys
+    if(note.includes("C#") || note.includes("D#") || note.includes("F#") || note.includes("G#") || note.includes("A#")){
+        keyClass = "black-key";
+    }
 
     if(note.length === 1){
         noteLabel = note;
@@ -109,7 +114,7 @@ function Key({ note, frequency, index, freq1, freq2, onChangeFreq1, onChangeFreq
     //end event listeners
 
     return(
-        <div className="key" data-id={index} onMouseDown={keyPressed} onMouseUp={keyReleased} >
+        <div className={keyClass} data-id={index} onMouseDown={keyPressed} onMouseUp={keyReleased} >
             <div className="key-label">
                 {noteLabel === note ? noteLabel : noteAccents}
                 <br></br>

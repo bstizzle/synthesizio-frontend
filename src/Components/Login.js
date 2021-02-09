@@ -54,24 +54,34 @@ function Login({ users, onSetUsers, onSetCurrentUser }) {
         }
     }
 
-    //currently no feedback for failed signup (duplicate username)
     function handleSignup(event){
         event.preventDefault();
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/users`, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newUser),
+        let validLogin = true;
+
+        users.forEach((user) => {
+            if(user.username === newUsername){
+                validLogin = false;
+            }
         })
-        .then(resp => resp.json())
-        .then(newUser => {
-            console.log(newUser)
-            onSetCurrentUser(newUser)
-            onSetUsers([...users, newUser])
-            alert(`Thanks for joining, ${newUsername}!`)
-            history.push('/userpage')
-        }) 
+        if(validLogin){
+            fetch(`${process.env.REACT_APP_API_BASE_URL}/users`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newUser),
+            })
+            .then(resp => resp.json())
+            .then(newUser => {
+                console.log(newUser)
+                onSetCurrentUser(newUser)
+                onSetUsers([...users, newUser])
+                alert(`Thanks for joining, ${newUsername}!`)
+                history.push('/userpage')
+            }) 
+        }else{
+            alert("Username taken!")
+        }
     }
 
     return(

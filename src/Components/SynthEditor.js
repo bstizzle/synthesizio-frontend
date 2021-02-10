@@ -66,6 +66,7 @@ class SynthEditor extends Component {
             })
             .then(resp => resp.json())
             .then(newSynth => {
+                this.synth["id"] = newSynth.id
                 this.props.synths.push(newSynth);
                 alert("Synth Created!");
             })

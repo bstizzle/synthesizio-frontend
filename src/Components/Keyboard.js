@@ -1,6 +1,7 @@
 import React from 'react'
 import { freqTones } from "./HashMaps";
 import Key from "./Key";
+import InfoModal from "./InfoModal";
 
 function Keyboard({ freq1, freq2, onFreq1Change, onFreq2Change }){
     const keyList = Object.entries(freqTones)
@@ -15,9 +16,12 @@ function Keyboard({ freq1, freq2, onFreq1Change, onFreq2Change }){
     });
 
     return(
-        <div className="keyboard-container">
-            <div className="keyboard">
-                {fullKeyboard}
+        <div>
+            <InfoModal topic="Keyboard" />
+            <div className="keyboard-container">
+                <div className="keyboard">
+                    {fullKeyboard}
+                </div>
             </div>
         </div>
     )

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Slider from 'react-input-slider';
 import { freqTones } from "./HashMaps"
+import InfoModal from "./InfoModal";
 
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -11,7 +12,6 @@ import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-
 
 function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, onType2Change, onGainChange, onDistCurveChange, onDistGainChange, onDistToggle, synth: {name, osc_type_1, osc_type_2, osc_freq_1, osc_freq_2, osc_gain, distortion_toggle, distortion_curve, distortion_gain, delay_length}}) {
     //formula for moving up and down western music notes by frequency/semi-tone
@@ -28,7 +28,7 @@ function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, o
         }
         return x;
     }
-
+    //controlled inputs
     const [freqSlider1, setFreqSlider1] = useState({x: setInitialFreqSlider(osc_freq_1)});
     const [freqSlider2, setFreqSlider2] = useState({x: setInitialFreqSlider(osc_freq_2)});
     const [type1, setType1] = useState(osc_type_1);
@@ -116,6 +116,7 @@ function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, o
             <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <Paper className={classes.paper}>
+                        <InfoModal topic="Oscillators" />
                         <label>Gain: {osc_gain}</label>
                         <br></br>
                         <Slider axis="x" xstep={0.01} xmin={0} xmax={0.5} x={gain.x} onChange={x => changeGain(x)} />
@@ -160,6 +161,7 @@ function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, o
                 <br></br>
                 <Grid item xs={6}>
                     <Paper className={classes.paper}>
+                        <InfoModal topic="Distortion" />
                         <FormControlLabel
                             control={<Switch checked={distToggle} onChange={changeDistToggle} name="distToggle" />}
                             label="Distortion Off/On"

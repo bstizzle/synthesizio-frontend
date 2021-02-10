@@ -58,7 +58,7 @@ function UserPage({ onSetCurrentSynth, currentUser, synths, onSetSynths }) {
                 <Grid item xs={6}>
                     <Paper className={classes.paper}>
                         <Typography variant="h3">
-                            USER PAGE
+                            {currentUser.username}'s synths
                         </Typography>
                     </Paper>
                 </Grid>

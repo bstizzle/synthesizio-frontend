@@ -29,6 +29,7 @@ Current site features:
         - Authorization is currently fake, when signing up the database will correctly encrypt/salt your password, but when logging in it only checks your username
     - Can create new synthesizer settings and save them to your account
     - Can open saved settings to play with and edit them
+    - Can click on the labels for aspects of the synth to see descriptions of each one
     - Can delete synth settings from your account
 
 Planned site features:

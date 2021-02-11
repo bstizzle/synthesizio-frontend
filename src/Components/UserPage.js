@@ -28,6 +28,10 @@ function UserPage({ onSetCurrentSynth, currentUser, synths, onSetSynths }) {
         onSetSynths(lessSynths)
     }
 
+    function handleBrowse(){
+        history.push('/index')
+    }
+
     //make a synthItem for all synths belonging to the currentUser
     const userSynths = synths.filter((synth) => {
         return synth.user.id === currentUser.id;
@@ -77,7 +81,7 @@ function UserPage({ onSetCurrentSynth, currentUser, synths, onSetSynths }) {
                         <Button onClick={handleNew} variant="contained">Create New Synth</Button>
                         <br></br>
                         <br></br>
-                        <Button variant="contained">Browse Synths (dead button for now)</Button>
+                        <Button onClick={handleBrowse} variant="contained">Browse Synths</Button>
                     </Paper>
                 </Grid>
             </Grid>

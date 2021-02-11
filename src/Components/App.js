@@ -3,6 +3,7 @@ import { Route, useHistory } from 'react-router-dom';
 import Login from './Login';
 import SynthEditor from './SynthEditor';
 import UserPage from './UserPage';
+import SynthIndex from './SynthIndex';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -58,6 +59,10 @@ function App() {
 
       <Route path='/userpage'>
         <UserPage onSetCurrentSynth={setCurrentSynth} onSetSynths={setSynths} currentUser={currentUser} synths={synths} />
+      </Route>
+
+      <Route path='/index'>
+        <SynthIndex synths={synths} currentUser={currentUser} onSetCurrentSynth={setCurrentSynth} />
       </Route>
     </div>
   );

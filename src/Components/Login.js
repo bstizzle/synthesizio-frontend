@@ -8,11 +8,12 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-function Login({ users, onSetUsers, onSetCurrentUser }) {
+function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin }) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [newUsername, setNewUsername] = useState("")
     const [newPassword, setNewPassword] = useState("")
+    const [errors, setErrors] = useState("")
 
     const history = useHistory()
 
@@ -40,20 +41,57 @@ function Login({ users, onSetUsers, onSetCurrentUser }) {
     ////////////////////
 
     function handleLogin(event){
-        event.preventDefault();
-        const user = users.find((user) => {
-            //no password auth currently, fake only
-            return (user.username === username);
+        event.preventDefault()
+            
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+            }),
+            credentials: 'include',
         })
-        if(user){
-            alert(`Welcome, ${username}!`)
-            onSetCurrentUser(user)
-            history.push('/userpage')
-        }else {
-            alert(`Incorrect username or password`)
-        }
+            .then(resp => resp.json())
+            .then(response => {
+                console.log(response)
+                if (response.logged_in) {
+                    handleAuthLogin(response.user)
+                    history.push('/userpage')
+                } else {
+                    setErrors(response.errors)
+                }
+            })
+            .catch(console.log('api errors:' + errors))
+
+        
+        // const user = users.find((user) => {
+        //     //no password auth currently, fake only
+        //     return (user.username === username);
+        // })
+        // if(user){
+        //     alert(`Welcome, ${username}!`)
+        //     onSetCurrentUser(user)
+        //     history.push('/userpage')
+        // }else {
+        //     alert(`Incorrect username or password`)
+        // }
     }
 
+    function handleErrors(){
+        return (
+            <div>
+                <ul>
+                {this.state.errors.map(error => {
+                    return <li key={error}>{error}</li>
+                })}
+                </ul>
+            </div>
+        )
+    };
+    
     function handleSignup(event){
         event.preventDefault();
         let validLogin = true;

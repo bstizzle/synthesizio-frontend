@@ -12,6 +12,7 @@ function App() {
   const [synths, setSynths] = useState([])
   const [currentUser, setCurrentUser] = useState()
   const [currentSynth, setCurrentSynth] = useState()
+  const [loggedIn, setLoggedIn] = useState(false)
   const history = useHistory();
   
   useEffect(() => {
@@ -32,6 +33,32 @@ function App() {
       })
   }, [])
 
+  function handleLogin(user){
+    setLoggedIn(true)
+    setCurrentUser(user)
+  }
+
+  function handleLogout(){
+    setLoggedIn(false)
+    setCurrentUser({})
+  }
+
+  function loginStatus(){
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/logged_in`, {credentials: 'include'})  
+      .then(resp => resp.json())  
+      .then(response => {
+        console.log(response)
+        if (response.logged_in) {
+          handleLogin(response)
+        } else {
+          handleLogout()
+        }
+      })
+      .catch(error => console.log('api errors:', error))
+  }
+
+  useEffect(loginStatus, []);
+
   //Material-UI styles to send to class-component-style components, can't use the hooks in the class components themselves
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,7 +77,7 @@ function App() {
   return (
     <div className="app-container">
       <Route exact path='/'>
-        <Login users={users} onSetUsers={setUsers} onSetCurrentUser={setCurrentUser} />
+        <Login users={users} onSetUsers={setUsers} onSetCurrentUser={setCurrentUser} handleAuthLogin={handleLogin} />
       </Route>
       
       <Route path='/syntheditor'>

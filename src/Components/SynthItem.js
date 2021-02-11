@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom'
-import { rackSynthGif } from '../Images/Racksynthgif';
+import rackSynthGif from '../Images/racksynthgif.gif';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -34,9 +34,11 @@ function SynthItem({ synth, onSetCurrentSynth, onSynthDelete }) {
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
+            padding: 5,
         },
         paper: {
             backgroundImage: `url(${rackSynthGif})`,
+            backgroundSize: "cover",
             padding: theme.spacing(2),
             textAlign: 'center',
             border: "3px solid purple",

@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-function UserPage({ onSetCurrentSynth, currentUser, synths, onSetSynths }) {
+function UserPage({ onSetCurrentSynth, currentUser, synths, onSetSynths, onLogout }) {
     const history = useHistory()
 
     //set currentSynth state to undefined, so the editor will use defaults and no primary-key-id, and go to the editor
@@ -18,7 +18,7 @@ function UserPage({ onSetCurrentSynth, currentUser, synths, onSetSynths }) {
     }
 
     function handleLogout(){
-        history.push('/')
+        onLogout()
     }
 
     function handleSynthDelete(synthId){

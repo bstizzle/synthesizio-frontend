@@ -39,23 +39,35 @@ function App() {
   }
 
   function handleLogout(){
-    setLoggedIn(false)
-    setCurrentUser({})
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/logout`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      })
+      .then(resp => resp.json())
+      .then(response => {
+          console.log(response)
+          setLoggedIn(false)
+          setCurrentUser({})
+          history.push("/")
+      })
+
   }
 
-  function loginStatus(){
+  const loginStatus = () => {
     fetch(`${process.env.REACT_APP_API_BASE_URL}/logged_in`, {credentials: 'include'})  
       .then(resp => resp.json())  
       .then(response => {
         console.log(response)
         if (response.logged_in) {
-          handleLogin(response)
+          handleLogin(response.user)
         } else {
           handleLogout()
         }
       })
-      .catch(error => console.log('api errors:', error))
-  }
+  };
 
   useEffect(loginStatus, []);
 
@@ -77,19 +89,19 @@ function App() {
   return (
     <div className="app-container">
       <Route exact path='/'>
-        <Login users={users} onSetUsers={setUsers} onSetCurrentUser={setCurrentUser} handleAuthLogin={handleLogin} />
+        <Login users={users} onSetUsers={setUsers} onSetCurrentUser={setCurrentUser} handleAuthLogin={handleLogin} loggedIn={loggedIn} />
       </Route>
       
       <Route path='/syntheditor'>
-        <SynthEditor classes={classes} history={history} synth={currentSynth} currentUser={currentUser} synths={synths} />
+        <SynthEditor classes={classes} history={history} synth={currentSynth} currentUser={currentUser} synths={synths} loggedIn={loggedIn} onLogout={handleLogout} />
       </Route>
 
       <Route path='/userpage'>
-        <UserPage onSetCurrentSynth={setCurrentSynth} onSetSynths={setSynths} currentUser={currentUser} synths={synths} />
+        <UserPage onSetCurrentSynth={setCurrentSynth} onSetSynths={setSynths} currentUser={currentUser} synths={synths} loggedIn={loggedIn} onLogout={handleLogout} />
       </Route>
 
       <Route path='/index'>
-        <SynthIndex synths={synths} currentUser={currentUser} onSetCurrentSynth={setCurrentSynth} />
+        <SynthIndex synths={synths} currentUser={currentUser} onSetCurrentSynth={setCurrentSynth} loggedIn={loggedIn} onLogout={handleLogout} />
       </Route>
     </div>
   );

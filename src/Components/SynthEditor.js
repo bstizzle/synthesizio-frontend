@@ -31,6 +31,7 @@ class SynthEditor extends Component {
             }
         }
         console.log(this.synth)
+        this.onLogout = this.props.onLogout
         this.state = { audioData: new Uint8Array(0), mute: true };
         this.tick = this.tick.bind(this);
         this.classes = this.props.classes
@@ -38,7 +39,7 @@ class SynthEditor extends Component {
 
     //CRUD/routing methods
     handleLogout = () => {
-        this.props.history.push('/')
+        this.onLogout()
     };
 
     handleUserRoute = () => {
@@ -82,7 +83,6 @@ class SynthEditor extends Component {
             this.oscGain.gain.setValueAtTime(this.synth.osc_gain, this.audioContext.currentTime); 
             this.setState({mute: false});
         }
-        console.log(this.synth)
     }
 
     //form methods
@@ -166,7 +166,6 @@ class SynthEditor extends Component {
         this.osc2 = this.audioContext.createOscillator();
         this.osc2.type = 'sawtooth';
         this.osc2.frequency.setValueAtTime(55, this.audioContext.currentTime); 
-        console.log(this.osc2.frequency)
 
         //initialize oscillator gain node
         this.oscGain = this.audioContext.createGain();

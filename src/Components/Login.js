@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 
 import Button from '@material-ui/core/Button';
@@ -8,12 +8,11 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin }) {
+function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin, loggedIn }) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [newUsername, setNewUsername] = useState("")
     const [newPassword, setNewPassword] = useState("")
-    const [errors, setErrors] = useState("")
 
     const history = useHistory()
 
@@ -21,6 +20,12 @@ function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin }) {
         username: newUsername,
         password: newPassword
     }
+
+    useEffect(() => {
+        if(loggedIn === true){
+            history.push("/userpage")
+        }
+    })
 
     //Material-UI styling
     const useStyles = makeStyles((theme) => ({
@@ -56,41 +61,13 @@ function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin }) {
         })
             .then(resp => resp.json())
             .then(response => {
-                console.log(response)
+                console.log(response.user)
                 if (response.logged_in) {
                     handleAuthLogin(response.user)
                     history.push('/userpage')
-                } else {
-                    setErrors(response.errors)
                 }
             })
-            .catch(console.log('api errors:' + errors))
-
-        
-        // const user = users.find((user) => {
-        //     //no password auth currently, fake only
-        //     return (user.username === username);
-        // })
-        // if(user){
-        //     alert(`Welcome, ${username}!`)
-        //     onSetCurrentUser(user)
-        //     history.push('/userpage')
-        // }else {
-        //     alert(`Incorrect username or password`)
-        // }
     }
-
-    function handleErrors(){
-        return (
-            <div>
-                <ul>
-                {this.state.errors.map(error => {
-                    return <li key={error}>{error}</li>
-                })}
-                </ul>
-            </div>
-        )
-    };
     
     function handleSignup(event){
         event.preventDefault();

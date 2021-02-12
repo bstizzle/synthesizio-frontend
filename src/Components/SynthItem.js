@@ -43,6 +43,16 @@ function SynthItem({ synth, onSetCurrentSynth, onSynthDelete }) {
             textAlign: 'center',
             border: "3px solid purple",
         },
+        editButton: {
+            backgroundColor: "black",
+            '&:hover': {
+                backgroundColor: "purple",
+            },
+            color: "white",
+        },
+        delButton: {
+            backgroundColor: "red",
+        }
     }));
 
     const classes = useStyles();
@@ -53,8 +63,8 @@ function SynthItem({ synth, onSetCurrentSynth, onSynthDelete }) {
         <div className={classes.root}>
             <Grid container item xs={12}>
                 <Paper className={classes.paper}>
-                    <Button onClick={handleEdit} variant="contained" color="primary">{synth.name}</Button>
-                    <Button onClick={handleDelete} variant="contained" color="secondary">X</Button>
+                    <Button onClick={handleEdit} variant="contained" className={classes.editButton}>{synth.name}</Button>
+                    <Button onClick={handleDelete} variant="contained" className={classes.delButton}>X</Button>
                 </Paper>
             </Grid>
         </div>

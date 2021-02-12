@@ -16,11 +16,6 @@ function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin, loggedIn 
 
     const history = useHistory()
 
-    const newUser = {
-        username: newUsername,
-        password: newPassword
-    }
-
     useEffect(() => {
         if(loggedIn === true){
             history.push("/userpage")
@@ -71,32 +66,35 @@ function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin, loggedIn 
     
     function handleSignup(event){
         event.preventDefault();
-        let validLogin = true;
+        // let validLogin = true;
 
-        users.forEach((user) => {
-            if(user.username === newUsername){
-                validLogin = false;
-            }
-        })
-        if(validLogin){
+        // users.forEach((user) => {
+        //     if(user.username === newUsername){
+        //         validLogin = false;
+        //     }
+        // })
+        // if(validLogin){
             fetch(`${process.env.REACT_APP_API_BASE_URL}/users`, {
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(newUser),
+                body: JSON.stringify({
+                    username: newUsername,
+                    password: newPassword,
+                }),
+                credentials: 'include',
             })
-            .then(resp => resp.json())
-            .then(newUser => {
-                console.log(newUser)
-                onSetCurrentUser(newUser)
-                onSetUsers([...users, newUser])
-                alert(`Thanks for joining, ${newUsername}!`)
-                history.push('/userpage')
-            }) 
-        }else{
-            alert("Username taken!")
-        }
+                .then(resp => resp.json())
+                .then(response => {
+                    console.log(response)
+                    if(response.status === 'created'){
+                        handleAuthLogin(response.user)
+                    }
+                })
+        // }else{
+        //     alert("Username taken!")
+        // }
     }
 
     return(

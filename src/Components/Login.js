@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import CustomStyles from './CustomStyles';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin, loggedIn }) {
+function Login({ users, onSetUsers, onSetCurrentUser, classes, handleAuthLogin, loggedIn }) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [newUsername, setNewUsername] = useState("")
@@ -21,9 +20,6 @@ function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin, loggedIn 
             history.push("/userpage")
         }
     })
-
-    //Importing custom material-ui styling
-    const classes = CustomStyles();
 
     function handleLogin(event){
         event.preventDefault()

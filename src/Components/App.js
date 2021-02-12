@@ -6,8 +6,6 @@ import UserPage from './UserPage';
 import SynthIndex from './SynthIndex';
 import CustomStyles from './CustomStyles';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 function App() {
   const [users, setUsers] = useState([])
   const [synths, setSynths] = useState([])

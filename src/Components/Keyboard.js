@@ -3,7 +3,7 @@ import { freqTones } from "./HashMaps";
 import Key from "./Key";
 import InfoModal from "./InfoModal";
 
-function Keyboard({ freq1, freq2, onFreq1Change, onFreq2Change }){
+function Keyboard({ classes, freq1, freq2, onFreq1Change, onFreq2Change }){
     const keyList = Object.entries(freqTones)
 
     const twelfthTwo = Math.pow(2, 1/12);
@@ -17,7 +17,7 @@ function Keyboard({ freq1, freq2, onFreq1Change, onFreq2Change }){
 
     return(
         <div>
-            <InfoModal topic="Keyboard" />
+            <InfoModal classes={classes} topic="Keyboard" />
             <div className="keyboard-container">
                 <div className="keyboard">
                     {fullKeyboard}

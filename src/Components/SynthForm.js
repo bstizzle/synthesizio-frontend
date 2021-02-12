@@ -111,11 +111,11 @@ function SynthForm({classes, onNameChange, onFreq1Change, onFreq2Change, onType1
 ////////////////////////////
 
     return(
-        <div className={classes.root}>
+        <div className={classes.itemRoot}>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
-                    <Paper className={classes.paper}>
-                        <InfoModal topic="Oscillators" />
+                    <Paper className={classes.formPaper}>
+                        <InfoModal classes={classes} topic="Oscillators" />
                         <label>Gain: {osc_gain}</label>
                         <br></br>
                         <Slider axis="x" xstep={0.01} xmin={0} xmax={0.5} x={gain.x} onChange={x => changeGain(x)} />
@@ -159,8 +159,8 @@ function SynthForm({classes, onNameChange, onFreq1Change, onFreq2Change, onType1
                 </Grid>
                 <br></br>
                 <Grid item xs={6}>
-                    <Paper className={classes.paper}>
-                        <InfoModal topic="Distortion" />
+                    <Paper className={classes.formPaper}>
+                        <InfoModal classes={classes} topic="Distortion" />
                         <FormControlLabel
                             control={<Switch checked={distToggle} onChange={changeDistToggle} name="distToggle" />}
                             label="Distortion Off/On"
@@ -184,7 +184,7 @@ function SynthForm({classes, onNameChange, onFreq1Change, onFreq2Change, onType1
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}>
+                    <Paper className={classes.formPaper}>
                         <TextField id="outlined-basic" label="Synth Name" variant="outlined" value={synthName} onChange={changeSynthName} />
                     </Paper>
                 </Grid>

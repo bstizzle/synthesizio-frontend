@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import InfoModal from "./InfoModal";
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -10,6 +9,7 @@ class AudioVisualiser extends Component {
         this.canvas = React.createRef();
         this.type = this.props.type
         this.state = { type: true }
+        this.classes = this.props.classes
     }
 
     handleAnalyserToggle = () => {
@@ -88,7 +88,6 @@ class AudioVisualiser extends Component {
     render(){
         return(
             <div>
-                <InfoModal topic="Audio Visualiser" />
                 <canvas className="analyser-container" width="600" height="200" ref={this.canvas} />
                 <br></br>
                 <FormControlLabel

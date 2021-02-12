@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import AudioVisualiser from './AudioVisualiser';
 import SynthForm from './SynthForm';
 import Keyboard from './Keyboard';
-import CustomStyles from './CustomStyles';
+import InfoModal from './InfoModal';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -174,7 +174,7 @@ class SynthEditor extends Component {
 
         //initialize oscillator gain node
         this.oscGain = this.audioContext.createGain();
-        this.oscGain.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+        this.oscGain.gain.setValueAtTime(0, this.audioContext.currentTime);
 
         //initialize distortion node
         this.distortion = this.audioContext.createWaveShaper();
@@ -264,14 +264,14 @@ class SynthEditor extends Component {
                     </Grid>
                     <Grid item xs={3}>
                         <Paper className={this.classes.paper}>
-                            
                             <Button onClick={this.handleLogout} variant="contained">Logout Button</Button>
                         </Paper>
                     </Grid>
 
                     <Grid item xs={12}>
                         <Paper className={this.classes.paper}>
-                            <AudioVisualiser audioData={this.dataArray} analyser={this.analyser} />
+                            <InfoModal classes={this.classes} topic="Audio Visualiser" />
+                            <AudioVisualiser classes={this.classes} audioData={this.dataArray} analyser={this.analyser} />
                         </Paper>
                     </Grid>
 
@@ -283,7 +283,7 @@ class SynthEditor extends Component {
 
                     <Grid item xs={12}>
                         <Paper className={this.classes.paper}>
-                            <Keyboard freq1={this.synth.osc_freq_1} freq2={this.synth.osc_freq_2} onFreq1Change={this.handleFreq1Change} onFreq2Change={this.handleFreq2Change} />
+                            <Keyboard classes={this.classes} freq1={this.synth.osc_freq_1} freq2={this.synth.osc_freq_2} onFreq1Change={this.handleFreq1Change} onFreq2Change={this.handleFreq2Change} />
                         </Paper>
                     </Grid>
 

@@ -42,14 +42,12 @@ function App() {
           setCurrentUser({})
           history.push("/")
       })
-
   }
 
   const loginStatus = () => {
     fetch(`${process.env.REACT_APP_API_BASE_URL}/logged_in`, {credentials: 'include'})  
       .then(resp => resp.json())  
       .then(response => {
-        console.log(response)
         if (response.logged_in) {
           handleLogin(response.user)
         } else {

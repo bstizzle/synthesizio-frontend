@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 function InfoModal({ classes, topic }) {
     //modal state
     const [open, setOpen] = useState(false);
-    console.log(classes)
 
     const handleClose = () => {
         setOpen(false);

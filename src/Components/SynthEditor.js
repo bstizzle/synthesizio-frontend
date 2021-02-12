@@ -230,19 +230,6 @@ class SynthEditor extends Component {
             this.oscGain.connect(this.analyser);
             this.oscGain.connect(this.audioContext.destination);
         }
-
-        // //keeps the sound muted
-        // this.attackTime = 1;
-        // this.releaseTime = 4;
-        // if(this.state.mute === true){
-        //     this.oscGain.gain.cancelScheduledValues(this.audioContext.currentTime);
-        //     this.oscGain.gain.linearRampToValueAtTime(0, this.audioContext.currentTime + this.attackTime + this.releaseTime);
-        //     // this.oscGain.gain.setValueAtTime(0, this.audioContext.currentTime); 
-        // }else{
-        //     this.oscGain.gain.cancelScheduledValues(this.audioContext.currentTime);
-        //     this.oscGain.gain.linearRampToValueAtTime(this.synth.osc_gain, this.audioContext.currentTime + this.attackTime);
-        //     // this.oscGain.gain.setValueAtTime(this.synth.osc_gain, this.audioContext.currentTime);
-        // }
     }
 
     tick() {

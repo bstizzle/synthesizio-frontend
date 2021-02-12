@@ -35,6 +35,9 @@ function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin, loggedIn 
             textAlign: 'center',
             border: "3px solid red",
         },
+        typography: {
+            fontFamily: 'Righteous'
+        },
     }));
 
     const classes = useStyles();
@@ -96,7 +99,7 @@ function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin, loggedIn 
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                        <Typography variant="h1">
+                        <Typography className={classes.typography} variant="h1">
                             Welcome to Synthesiz.io!
                         </Typography>
                     </Paper>

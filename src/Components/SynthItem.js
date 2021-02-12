@@ -1,13 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom'
-import rackSynthGif from '../Images/racksynthgif.gif';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
 
-function SynthItem({ synth, onSetCurrentSynth, onSynthDelete }) {
+function SynthItem({ classes, synth, onSetCurrentSynth, onSynthDelete }) {
     const history = useHistory()
 
     //set the currentSynth state to the selected one from the list, and bring the params to the editor
@@ -30,39 +28,11 @@ function SynthItem({ synth, onSetCurrentSynth, onSynthDelete }) {
         })
     }
 
-    //Material-UI styling
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            flexGrow: 1,
-            padding: 5,
-        },
-        paper: {
-            backgroundImage: `url(${rackSynthGif})`,
-            backgroundSize: "cover",
-            padding: theme.spacing(2),
-            textAlign: 'center',
-            border: "3px solid purple",
-        },
-        editButton: {
-            backgroundColor: "black",
-            '&:hover': {
-                backgroundColor: "purple",
-            },
-            color: "white",
-        },
-        delButton: {
-            backgroundColor: "red",
-        }
-    }));
-
-    const classes = useStyles();
-    ///////////////////////////////////
-
     //render all the user's synths with a button routing to the editor and a delete button
     return(
-        <div className={classes.root}>
+        <div className={classes.itemRoot}>
             <Grid container item xs={12}>
-                <Paper className={classes.paper}>
+                <Paper className={classes.itemPaper}>
                     <Button onClick={handleEdit} variant="contained" className={classes.editButton}>{synth.name}</Button>
                     <Button onClick={handleDelete} variant="contained" className={classes.delButton}>X</Button>
                 </Paper>

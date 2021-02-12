@@ -6,9 +6,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 
-function SynthIndex({ synths, currentUser, onSetCurrentSynth, onLogout }) {
+function SynthIndex({ classes, synths, currentUser, onSetCurrentSynth, onLogout }) {
     const history = useHistory()
 
     function handleLogout(){
@@ -19,21 +18,6 @@ function SynthIndex({ synths, currentUser, onSetCurrentSynth, onLogout }) {
         history.push('/userpage')
     };
 
-    //Material-UI styling
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            flexGrow: 1,
-        },
-        paper: {
-            padding: theme.spacing(2),
-            textAlign: 'center',
-            border: "3px solid red",
-        },
-    }));
-
-    const classes = useStyles();
-    ///////////////////////////////////
-
     const otherSynths = synths.filter((synth) => {
         return synth.user.id !== currentUser.id;
      })
@@ -42,7 +26,7 @@ function SynthIndex({ synths, currentUser, onSetCurrentSynth, onLogout }) {
          return (
              <Grid key={synth.id} item xs={4}>
                  <Paper key={synth.id} className={classes.paper}>
-                     <SynthItem key={synth.id} synth={synth} onSetCurrentSynth={onSetCurrentSynth} />
+                     <SynthItem key={synth.id} classes={classes} synth={synth} onSetCurrentSynth={onSetCurrentSynth} />
                  </Paper>
              </Grid>
          );
@@ -53,7 +37,7 @@ function SynthIndex({ synths, currentUser, onSetCurrentSynth, onLogout }) {
             <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <Paper className={classes.paper}>
-                        <Typography variant="h3">
+                        <Typography className={classes.typography} variant="h3">
                             SYNTH INDEX
                         </Typography>
                     </Paper>

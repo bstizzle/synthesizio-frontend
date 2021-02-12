@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import AudioVisualiser from './AudioVisualiser';
 import SynthForm from './SynthForm';
 import Keyboard from './Keyboard';
+import CustomStyles from './CustomStyles';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -251,7 +252,7 @@ class SynthEditor extends Component {
                 <Grid container direction="row" justify="center" alignItems="stretch" spacing={2}>
                     <Grid item xs={6}>
                         <Paper className={this.classes.paper}>
-                            <Typography variant="h3">
+                            <Typography className={this.classes.typography} variant="h3">
                                 SYNTH EDITOR
                             </Typography>
                         </Paper>
@@ -288,7 +289,7 @@ class SynthEditor extends Component {
 
                     <Grid item xs={12}>
                         <Paper className={this.classes.paper}>
-                            <SynthForm synth={this.synth}
+                            <SynthForm synth={this.synth} classes={this.classes}
                                 onFreq1Change={this.handleFreq1Change} 
                                 onFreq2Change={this.handleFreq2Change}
                                 onType1Change={this.handleType1Change}

@@ -4,6 +4,7 @@ import Login from './Login';
 import SynthEditor from './SynthEditor';
 import UserPage from './UserPage';
 import SynthIndex from './SynthIndex';
+import CustomStyles from './CustomStyles';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -72,24 +73,25 @@ function App() {
   useEffect(loginStatus, []);
 
   //Material-UI styles to send to class-component-style components, can't use the hooks in the class components themselves
-  const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        border: "3px solid purple",
-    },
-  }));
+  // const useStyles = makeStyles((theme) => ({
+  //   root: {
+  //       flexGrow: 1,
+  //   },
+  //   paper: {
+  //       padding: theme.spacing(2),
+  //       textAlign: 'center',
+  //       border: "3px solid purple",
+  //   },
+  // }));
 
-  const classes = useStyles();
+  // const classes = useStyles();
+  const classes = CustomStyles();
   ///////////////////////////////////
 
   return (
     <div className="app-container">
       <Route exact path='/'>
-        <Login users={users} onSetUsers={setUsers} onSetCurrentUser={setCurrentUser} handleAuthLogin={handleLogin} loggedIn={loggedIn} />
+        <Login classes={classes} users={users} onSetUsers={setUsers} onSetCurrentUser={setCurrentUser} handleAuthLogin={handleLogin} loggedIn={loggedIn} />
       </Route>
       
       <Route path='/syntheditor'>
@@ -97,11 +99,11 @@ function App() {
       </Route>
 
       <Route path='/userpage'>
-        <UserPage onSetCurrentSynth={setCurrentSynth} onSetSynths={setSynths} currentUser={currentUser} synths={synths} loggedIn={loggedIn} onLogout={handleLogout} />
+        <UserPage classes={classes} onSetCurrentSynth={setCurrentSynth} onSetSynths={setSynths} currentUser={currentUser} synths={synths} loggedIn={loggedIn} onLogout={handleLogout} />
       </Route>
 
       <Route path='/index'>
-        <SynthIndex synths={synths} currentUser={currentUser} onSetCurrentSynth={setCurrentSynth} loggedIn={loggedIn} onLogout={handleLogout} />
+        <SynthIndex classes={classes} synths={synths} currentUser={currentUser} onSetCurrentSynth={setCurrentSynth} loggedIn={loggedIn} onLogout={handleLogout} />
       </Route>
     </div>
   );

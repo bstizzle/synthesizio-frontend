@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import CustomStyles from './CustomStyles';
 
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -22,26 +22,8 @@ function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin, loggedIn 
         }
     })
 
-    //Material-UI styling
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            '& > *': {
-                margin: theme.spacing(1),
-                width: '25ch',
-            },
-        },
-        paper: {
-            padding: theme.spacing(2),
-            textAlign: 'center',
-            border: "3px solid red",
-        },
-        typography: {
-            fontFamily: 'Righteous'
-        },
-    }));
-
-    const classes = useStyles();
-    ////////////////////
+    //Importing custom material-ui styling
+    const classes = CustomStyles();
 
     function handleLogin(event){
         event.preventDefault()

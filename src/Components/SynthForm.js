@@ -3,7 +3,6 @@ import Slider from 'react-input-slider';
 import { freqTones } from "./HashMaps"
 import InfoModal from "./InfoModal";
 
-import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -13,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, onType2Change, onGainChange, onDistCurveChange, onDistGainChange, onDistToggle, synth: {name, osc_type_1, osc_type_2, osc_freq_1, osc_freq_2, osc_gain, distortion_toggle, distortion_curve, distortion_gain, delay_length}}) {
+function SynthForm({classes, onNameChange, onFreq1Change, onFreq2Change, onType1Change, onType2Change, onGainChange, onDistCurveChange, onDistGainChange, onDistToggle, synth: {name, osc_type_1, osc_type_2, osc_freq_1, osc_freq_2, osc_gain, distortion_toggle, distortion_curve, distortion_gain, delay_length}}) {
     //formula for moving up and down western music notes by frequency/semi-tone
     const twelfthTwo = Math.pow(2, 1/12);
 
@@ -90,25 +89,25 @@ function SynthForm({onNameChange, onFreq1Change, onFreq2Change, onType1Change, o
     }
 
 /////////////////////// Material-UI styling
-    const useStyles = makeStyles((theme) => ({
-        formControl: {
-          margin: theme.spacing(1),
-          minWidth: 120,
-        },
-        selectEmpty: {
-          marginTop: theme.spacing(2),
-        },
-        root: {
-            flexGrow: 1,
-        },
-        paper: {
-            padding: theme.spacing(2),
-            textAlign: 'center',
-            border: "3px solid red",
-        },
-    }));
+    // const useStyles = makeStyles((theme) => ({
+    //     formControl: {
+    //       margin: theme.spacing(1),
+    //       minWidth: 120,
+    //     },
+    //     selectEmpty: {
+    //       marginTop: theme.spacing(2),
+    //     },
+    //     root: {
+    //         flexGrow: 1,
+    //     },
+    //     paper: {
+    //         padding: theme.spacing(2),
+    //         textAlign: 'center',
+    //         border: "3px solid red",
+    //     },
+    // }));
 
-    const classes = useStyles();
+    // const classes = useStyles();
 ////////////////////////////
 
     return(

@@ -57,44 +57,38 @@ function Login({ users, onSetUsers, onSetCurrentUser, handleAuthLogin, loggedIn 
             .then(resp => resp.json())
             .then(response => {
                 console.log(response.user)
-                if (response.logged_in) {
+                if(response.logged_in) {
                     handleAuthLogin(response.user)
                     history.push('/userpage')
+                }else{
+                    alert("Invalid username or password.")
                 }
             })
     }
     
     function handleSignup(event){
         event.preventDefault();
-        // let validLogin = true;
-
-        // users.forEach((user) => {
-        //     if(user.username === newUsername){
-        //         validLogin = false;
-        //     }
-        // })
-        // if(validLogin){
-            fetch(`${process.env.REACT_APP_API_BASE_URL}/users`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: newUsername,
-                    password: newPassword,
-                }),
-                credentials: 'include',
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/users`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: newUsername,
+                password: newPassword,
+            }),
+            credentials: 'include',
+        })
+            .then(resp => resp.json())
+            .then(response => {
+                console.log(response)
+                if(response.status === 'created'){
+                    handleAuthLogin(response.user)
+                }
+                else{
+                    alert("Username taken!")
+                }
             })
-                .then(resp => resp.json())
-                .then(response => {
-                    console.log(response)
-                    if(response.status === 'created'){
-                        handleAuthLogin(response.user)
-                    }
-                })
-        // }else{
-        //     alert("Username taken!")
-        // }
     }
 
     return(

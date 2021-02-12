@@ -88,28 +88,6 @@ function SynthForm({classes, onNameChange, onFreq1Change, onFreq2Change, onType1
         onNameChange(event.target.value)
     }
 
-/////////////////////// Material-UI styling
-    // const useStyles = makeStyles((theme) => ({
-    //     formControl: {
-    //       margin: theme.spacing(1),
-    //       minWidth: 120,
-    //     },
-    //     selectEmpty: {
-    //       marginTop: theme.spacing(2),
-    //     },
-    //     root: {
-    //         flexGrow: 1,
-    //     },
-    //     paper: {
-    //         padding: theme.spacing(2),
-    //         textAlign: 'center',
-    //         border: "3px solid red",
-    //     },
-    // }));
-
-    // const classes = useStyles();
-////////////////////////////
-
     return(
         <div className={classes.itemRoot}>
             <Grid container spacing={2}>

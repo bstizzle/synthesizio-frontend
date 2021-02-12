@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-function Login({ users, onSetUsers, onSetCurrentUser, classes, handleAuthLogin, loggedIn }) {
+function Login({ classes, handleAuthLogin, loggedIn }) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [newUsername, setNewUsername] = useState("")

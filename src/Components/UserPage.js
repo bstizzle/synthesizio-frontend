@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom'
 import SynthItem from './SynthItem';
-import CustomStyles from './CustomStyles';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';

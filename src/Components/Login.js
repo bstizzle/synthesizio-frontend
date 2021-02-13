@@ -76,29 +76,29 @@ function Login({ classes, handleAuthLogin, loggedIn }) {
         <div className="page-container">
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}>
+                    <Paper className={classes.paper} elevation={10}>
                         <Typography className={classes.typography} variant="h1">
                             Welcome to Synthesiz.io!
                         </Typography>
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
-                    <Paper className={classes.paper}>
+                    <Paper className={classes.paper} elevation={10}>
                         <form onSubmit={handleLogin} className={classes.root} noValidate autoComplete="off">
-                            <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={e => setUsername(e.target.value)} />
-                            <TextField id="outlined-basic" label="Password" type='password' variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
+                            <TextField label="Username" variant="outlined" value={username} onChange={e => setUsername(e.target.value)} />
+                            <TextField label="Password" type='password' variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
                             <br></br>
-                            <Button type='submit' variant="contained">Login</Button>
+                            <Button type='submit' variant="outlined" className={classes.loginButton}>Login</Button>
                         </form>
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
-                    <Paper className={classes.paper}>
+                    <Paper className={classes.paper} elevation={10}>
                         <form onSubmit={handleSignup} className={classes.root} noValidate autoComplete="off">
-                            <TextField id="outlined-basic" label="Username" variant="outlined" value={newUsername} onChange={e => setNewUsername(e.target.value)} />
-                            <TextField id="outlined-basic" label="Password" type='password' variant="outlined" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+                            <TextField label="Username" variant="outlined" value={newUsername} onChange={e => setNewUsername(e.target.value)} />
+                            <TextField label="Password" type='password' variant="outlined" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
                             <br></br>
-                            <Button type='submit' variant="contained">Signup</Button>
+                            <Button type='submit' variant="outlined" className={classes.loginButton}>Signup</Button>
                         </form>
                     </Paper>
                 </Grid>

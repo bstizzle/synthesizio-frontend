@@ -36,20 +36,20 @@ function SynthIndex({ classes, synths, currentUser, onSetCurrentSynth, onLogout 
         <div className="page-container">
             <Grid container spacing={2}>
                 <Grid item xs={6}>
-                    <Paper className={classes.paper}>
+                    <Paper className={classes.paper} elevation={10}>
                         <Typography className={classes.typography} variant="h3">
                             SYNTH INDEX
                         </Typography>
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
-                    <Paper className={classes.paper}>
-                        <Button onClick={handleUserRoute} variant="contained">User Page</Button>
+                    <Paper className={classes.paper} elevation={10}>
+                        <Button onClick={handleUserRoute} variant="outlined" className={classes.editButton}>User Page</Button>
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
-                    <Paper className={classes.paper}>
-                        <Button onClick={handleLogout} variant="contained">Logout Button</Button>
+                    <Paper className={classes.paper} elevation={10}>
+                        <Button onClick={handleLogout} variant="outlined" className={classes.editButton}>Logout Button</Button>
                     </Paper>
                 </Grid>
                 {synthList}

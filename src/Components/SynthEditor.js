@@ -251,44 +251,44 @@ class SynthEditor extends Component {
             <div className="page-container">
                 <Grid container direction="row" justify="center" alignItems="stretch" spacing={2}>
                     <Grid item xs={6}>
-                        <Paper className={this.classes.paper}>
+                        <Paper className={this.classes.paper} elevation={10}>
                             <Typography className={this.classes.typography} variant="h3">
                                 SYNTH EDITOR
                             </Typography>
                         </Paper>
                     </Grid>
                     <Grid item xs={3}>
-                        <Paper className={this.classes.paper}>
-                            <Button onClick={this.handleUserRoute} variant="contained">User Page</Button>
+                        <Paper className={this.classes.paper} elevation={10}>
+                            <Button onClick={this.handleUserRoute} variant="outlined" className={this.classes.editButton}>User Page</Button>
                         </Paper>
                     </Grid>
                     <Grid item xs={3}>
-                        <Paper className={this.classes.paper}>
-                            <Button onClick={this.handleLogout} variant="contained">Logout Button</Button>
+                        <Paper className={this.classes.paper} elevation={10}>
+                            <Button onClick={this.handleLogout} variant="outlined" className={this.classes.editButton}>Logout Button</Button>
                         </Paper>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Paper className={this.classes.paper}>
+                        <Paper className={this.classes.paper} elevation={10}>
                             <InfoModal classes={this.classes} topic="Audio Visualiser" />
                             <AudioVisualiser classes={this.classes} audioData={this.dataArray} analyser={this.analyser} />
                         </Paper>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Paper className={this.classes.paper}>
-                            <Button onClick={this.handleMute} variant="contained">Mute</Button>
+                        <Paper className={this.classes.paper} elevation={10}>
+                            <Button onClick={this.handleMute} variant="outlined" className={this.classes.editButton}>Mute</Button>
                         </Paper>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Paper className={this.classes.paper}>
+                        <Paper className={this.classes.paper} elevation={10}>
                             <Keyboard classes={this.classes} freq1={this.synth.osc_freq_1} freq2={this.synth.osc_freq_2} onFreq1Change={this.handleFreq1Change} onFreq2Change={this.handleFreq2Change} />
                         </Paper>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Paper className={this.classes.paper}>
+                        <Paper className={this.classes.paper} elevation={10}>
                             <SynthForm synth={this.synth} classes={this.classes}
                                 onFreq1Change={this.handleFreq1Change} 
                                 onFreq2Change={this.handleFreq2Change}
@@ -303,8 +303,8 @@ class SynthEditor extends Component {
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
-                        <Paper className={this.classes.paper}>
-                            <Button onClick={this.handleSynthSubmit} variant="contained">{this.synth.id ? "Save Synth" : "Create Synth"}</Button>
+                        <Paper className={this.classes.paper} elevation={10}>
+                            <Button onClick={this.handleSynthSubmit} variant="outlined" className={this.classes.editButton}>{this.synth.id ? "Save Synth" : "Create Synth"}</Button>
                         </Paper>
                     </Grid>
                 </Grid>

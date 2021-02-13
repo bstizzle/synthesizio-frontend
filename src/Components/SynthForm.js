@@ -92,7 +92,7 @@ function SynthForm({classes, onNameChange, onFreq1Change, onFreq2Change, onType1
         <div className={classes.itemRoot}>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
-                    <Paper className={classes.formPaper}>
+                    <Paper className={classes.formPaper} elevation={10}>
                         <InfoModal classes={classes} topic="Oscillators" />
                         <label>Gain: {osc_gain}</label>
                         <br></br>
@@ -137,7 +137,7 @@ function SynthForm({classes, onNameChange, onFreq1Change, onFreq2Change, onType1
                 </Grid>
                 <br></br>
                 <Grid item xs={6}>
-                    <Paper className={classes.formPaper}>
+                    <Paper className={classes.formPaper} elevation={10}>
                         <InfoModal classes={classes} topic="Distortion" />
                         <FormControlLabel
                             control={<Switch checked={distToggle} onChange={changeDistToggle} name="distToggle" />}
@@ -162,7 +162,7 @@ function SynthForm({classes, onNameChange, onFreq1Change, onFreq2Change, onType1
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
-                    <Paper className={classes.formPaper}>
+                    <Paper className={classes.formPaper} elevation={10}>
                         <TextField id="outlined-basic" label="Synth Name" variant="outlined" value={synthName} onChange={changeSynthName} />
                     </Paper>
                 </Grid>

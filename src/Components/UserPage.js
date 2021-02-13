@@ -44,28 +44,28 @@ function UserPage({ classes, onSetCurrentSynth, currentUser, synths, onSetSynths
         <div className="page-container">
             <Grid container spacing={2}>
                 <Grid item xs={6}>
-                    <Paper className={classes.paper}>
+                    <Paper className={classes.paper} elevation={10}>
                         <Typography className={classes.typography} variant="h3">
                             {currentUser.username}'s synths
                         </Typography>
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
-                    <Paper className={classes.paper}>
-                        <Button onClick={handleLogout} variant="contained">Logout Button</Button>
+                    <Paper className={classes.paper} elevation={10}>
+                        <Button onClick={handleLogout} variant="outlined" className={classes.editButton}>Logout Button</Button>
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
-                    <Paper className={classes.paper}>
+                    <Paper className={classes.paper} elevation={10}>
                         {synthItems}
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
-                    <Paper className={classes.paper}>
-                        <Button onClick={handleNew} variant="contained">Create New Synth</Button>
+                    <Paper className={classes.paper} elevation={10}>
+                        <Button onClick={handleNew} variant="outlined" className={classes.editButton}>Create New Synth</Button>
                         <br></br>
                         <br></br>
-                        <Button onClick={handleBrowse} variant="contained">Browse Synths</Button>
+                        <Button onClick={handleBrowse} variant="outlined" className={classes.editButton}>Browse Synths</Button>
                     </Paper>
                 </Grid>
             </Grid>

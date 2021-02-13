@@ -32,9 +32,9 @@ function SynthItem({ classes, synth, onSetCurrentSynth, onSynthDelete }) {
     return(
         <div className={classes.itemRoot}>
             <Grid container item xs={12}>
-                <Paper className={classes.itemPaper}>
-                    <Button onClick={handleEdit} variant="contained" className={classes.editButton}>{synth.name}</Button>
-                    <Button onClick={handleDelete} variant="contained" className={classes.delButton}>X</Button>
+                <Paper className={classes.itemPaper} elevation={10}>
+                    <Button onClick={handleEdit} variant="outlined" className={classes.editButton}>{synth.name}</Button>
+                    <Button onClick={handleDelete} variant="outlined" className={classes.delButton}>X</Button>
                 </Paper>
             </Grid>
         </div>

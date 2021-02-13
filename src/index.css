@@ -1,11 +1,12 @@
 body {
   margin: 0;
-  background-color: darkgrey;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: url("./Images/circuitBackground.jpg") repeat-y;
+  background-size: cover;
 }
 
 code {
@@ -16,14 +17,14 @@ code {
 .app-container {
   margin: auto;
   text-align: center;
-  border: 3px solid green;
+  /* border: 3px solid green; */
   padding: 10px;
 }
 
 .page-container {
   margin: auto;
   text-align: center;
-  border: 3px solid blue;
+  /* border: 3px solid blue; */
   padding: 10px;
   font-family: 'Righteous';
 }
@@ -31,7 +32,7 @@ code {
 .analyser-container {
   margin: auto;
   text-align: center;
-  border: 3px solid lightgreen;
+  /* border: 3px solid lightgreen; */
   padding: 10px;
 }
 

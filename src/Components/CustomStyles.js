@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import rackSynthGif from '../Images/racksynthgif.gif';
+import woodTexture from '../Images/woodTexture.png';
 
 export default function CustomStyles(){
     const useStyles = makeStyles((theme) => ({
@@ -7,12 +8,32 @@ export default function CustomStyles(){
             '& > *': {
                 margin: theme.spacing(1),
                 width: '25ch',
-            },
+                backgroundColor: 'rgb(44, 53, 57)',
+                color: 'white',
+                borderColor: 'white',
+                '& label.Mui-focused': {
+                    color: 'white',
+                },
+                '& .MuiOutlinedInput-root': {
+                    color: 'white',
+                    '& fieldset': {
+                        borderColor: 'white',
+                    },
+                    '&:hover fieldset': {
+                        borderColor: 'white',
+                    },
+                    '&.Mui-focused fieldset': {
+                        borderColor: 'white',
+                    },
+                },
+            }
         },
         paper: {
             padding: theme.spacing(2),
             textAlign: 'center',
-            border: "3px solid red",
+            backgroundImage: `url(${woodTexture})`,
+            backgroundSize: "cover",
+            // border: "3px solid red",
         },
         typography: {
             fontFamily: 'Righteous'
@@ -26,12 +47,18 @@ export default function CustomStyles(){
             backgroundSize: "cover",
             padding: theme.spacing(2),
             textAlign: 'center',
-            border: "3px solid purple",
+            // border: "3px solid purple",
+        },
+        loginButton: {
+            '&:hover': {
+                backgroundColor: "black",
+            },
         },
         editButton: {
-            backgroundColor: "black",
+            backgroundColor: 'rgb(44, 53, 57)',
+            borderColor: 'white',
             '&:hover': {
-                backgroundColor: "purple",
+                backgroundColor: "black",
             },
             color: "white",
         },
@@ -61,7 +88,7 @@ export default function CustomStyles(){
         formPaper: {
             padding: theme.spacing(2),
             textAlign: 'center',
-            border: "3px solid purple",
+            // border: "3px solid purple",
         },
     }));
 

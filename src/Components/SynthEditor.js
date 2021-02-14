@@ -203,6 +203,10 @@ class SynthEditor extends Component {
         this.osc2.type = this.synth.osc_type_2;
         this.osc2.frequency.setValueAtTime(this.synth.osc_freq_2, this.audioContext.currentTime);
 
+        if(this.state.mute === false){
+            this.oscGain.gain.setValueAtTime(this.synth.osc_gain, this.audioContext.currentTime);
+        }
+
         //update these conditionally, because if they set every time (even if the value doesnt actually change) it causes clicking
         //this conditional makes it only change if the curve was changed, rather than resetting it every loop
         if(this.synth.distortion_curve === 'soft' && this.softDistortionCurve(this.synth.distortion_gain)[0] !== this.distortion.curve[0]){

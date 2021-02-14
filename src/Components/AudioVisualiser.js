@@ -48,11 +48,11 @@ class AudioVisualiser extends Component {
         let barHeight;
         let x = 0;
 
-        for(var i = 0; i < bufferLength; i++) {
+        for(let i = 0; i < bufferLength; i++) {
             barHeight = dataArray[i]/2;
     
-            context.fillStyle = 'rgb(' + (barHeight+100) + ',50,50)';
-            context.fillRect(x,height-barHeight/2,barWidth,barHeight);
+            context.fillStyle = 'rgb(50,' + (barHeight+100) + ',50)';
+            context.fillRect(x, height-barHeight/2, barWidth, barHeight);
     
             x += barWidth + 1;
         }

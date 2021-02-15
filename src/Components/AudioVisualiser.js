@@ -30,7 +30,7 @@ class AudioVisualiser extends Component {
 
     drawEq(){
         const { analyser } = this.props;
-        analyser.fftSize = 256;
+        analyser.fftSize = 512;
         const bufferLength = analyser.frequencyBinCount;
         const dataArray = new Uint8Array(bufferLength);
         const canvas = this.canvas.current;
@@ -52,7 +52,7 @@ class AudioVisualiser extends Component {
             barHeight = dataArray[i]/2;
     
             context.fillStyle = 'rgb(50,' + (barHeight+100) + ',50)';
-            context.fillRect(x, height-barHeight/2, barWidth, barHeight);
+            context.fillRect(x, height-barHeight, barWidth, barHeight);
     
             x += barWidth + 1;
         }
@@ -88,7 +88,7 @@ class AudioVisualiser extends Component {
     render(){
         return(
             <div>
-                <canvas className="analyser-container" width="600" height="200" ref={this.canvas} />
+                <canvas className="analyser-container" width="900" height="300" ref={this.canvas} />
                 <br></br>
                 <div className={this.classes.controlLabel}>
                     <FormControlLabel

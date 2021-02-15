@@ -49,15 +49,32 @@ class SynthEditor extends Component {
 
     handleSynthSubmit = () => {
         if(this.synth.id) {
-            fetch(`${process.env.REACT_APP_API_BASE_URL}/synths/${this.synth.id}`, {
-                method: 'PATCH',
-                headers: {
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(this.synth),
-            })
-            .then(resp => resp.json())
-            .then(alert("Synth Saved!"))
+            //if the synth being edited belongs to the user, patch, if it doesnt, post a copy belonging to the user
+            if(this.synth.user_id === this.props.currentUser.id){
+                fetch(`${process.env.REACT_APP_API_BASE_URL}/synths/${this.synth.id}`, {
+                    method: 'PATCH',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(this.synth),
+                })
+                .then(resp => resp.json())
+                .then(alert("Synth Saved!"))
+            }else{
+                fetch(`${process.env.REACT_APP_API_BASE_URL}/synths`, {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({...this.synth, user_id: this.props.currentUser.id}),
+                })
+                .then(resp => resp.json())
+                .then(newSynth => {
+                    this.synth["id"] = newSynth.id
+                    this.props.synths.push(newSynth);
+                    alert("Synth Copied!");
+                })
+            }
         }else {
             fetch(`${process.env.REACT_APP_API_BASE_URL}/synths`, {
                 method: 'POST',

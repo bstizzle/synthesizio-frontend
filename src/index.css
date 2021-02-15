@@ -30,16 +30,17 @@ code {
 }
 
 .analyser-container {
-  margin: auto;
+  margin: 10px auto;
   text-align: center;
-  /* border: 3px solid lightgreen; */
-  padding: 10px;
+  border: 3px solid white;
+  background-color: black;
 }
 
 .white-key {
   cursor: pointer;
   font: 16px "Open Sans", "Lucida Grande", "Arial", sans-serif;
   border: 1px solid black;
+  background-color: white;
   border-radius: 5px;
   width: 20px;
   height: 80px;
@@ -81,4 +82,23 @@ code {
   height: 70%;
   white-space: nowrap;
   margin: auto;
+}
+
+.keyboard-div {
+  background-color: rgb(44, 53, 57);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 3px solid white;
+}
+
+div option {
+  color: black;
+}
+
+div label {
+  font-family: 'Roboto';
+}
+
+.modal-div {
+  padding-bottom: 5px;
 }

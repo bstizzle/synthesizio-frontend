@@ -27,8 +27,8 @@ function InfoModal({ classes, topic }) {
     }
 
     return(
-        <div>
-            <Button onClick={handleOpen}>
+        <div className="modal-div">
+            <Button className={classes.editButton} variant="outlined" onClick={handleOpen}>
                 <Typography className={classes.typography}>
                     {topic}
                 </Typography>

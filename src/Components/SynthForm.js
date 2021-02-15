@@ -127,7 +127,7 @@ function SynthForm({classes, onNameChange, onFreq1Change, onFreq2Change, onType1
                                 value={type2}
                                 onChange={changeType2}
                             >
-                            <option value='sine'>Sine</option>
+                            <option className="form-option" value='sine'>Sine</option>
                             <option value='triangle'>Triangle</option>
                             <option value='sawtooth'>Sawtooth</option>
                             <option value='square'>Square</option>
@@ -163,7 +163,7 @@ function SynthForm({classes, onNameChange, onFreq1Change, onFreq2Change, onType1
                 </Grid>
                 <Grid item xs={12}>
                     <Paper className={classes.formPaper} elevation={10}>
-                        <TextField id="outlined-basic" label="Synth Name" variant="outlined" value={synthName} onChange={changeSynthName} />
+                        <TextField label="Synth Name" variant="outlined" value={synthName} onChange={changeSynthName} />
                     </Paper>
                 </Grid>
             </Grid>

@@ -16,7 +16,7 @@ function Keyboard({ classes, freq1, freq2, onFreq1Change, onFreq2Change }){
     });
 
     return(
-        <div>
+        <div className="keyboard-div">
             <InfoModal classes={classes} topic="Keyboard" />
             <div className="keyboard-container">
                 <div className="keyboard">

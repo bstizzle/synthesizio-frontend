@@ -69,7 +69,7 @@ class AudioVisualiser extends Component {
         const sliceWidth = (width * 1.0) / audioData.length;
         let x = 0;
         context.lineWidth = 2;
-        context.strokeStyle = '#000000';
+        context.strokeStyle = 'white';
         context.clearRect(0, 0, width, height);
 
         context.beginPath();
@@ -90,10 +90,12 @@ class AudioVisualiser extends Component {
             <div>
                 <canvas className="analyser-container" width="600" height="200" ref={this.canvas} />
                 <br></br>
-                <FormControlLabel
-                    control={<Switch checked={this.state.type} onChange={this.handleAnalyserToggle} name="this.state.type" />}
-                    label="Oscilloscope/EQ"
-                />
+                <div className={this.classes.controlLabel}>
+                    <FormControlLabel
+                        control={<Switch checked={this.state.type} onChange={this.handleAnalyserToggle} name="this.state.type" />}
+                        label="Oscilloscope/EQ"
+                    />
+                </div>
             </div>
         );
     };

@@ -81,6 +81,12 @@ export default function CustomStyles(){
         formControl: {
             margin: theme.spacing(1),
             minWidth: 120,
+            '& .MuiSelect-select': {
+                color: "white"
+            },
+            '& .MuiInputLabel-root': {
+                color: "white"
+            }
         },
         selectEmpty: {
             marginTop: theme.spacing(2),
@@ -88,8 +94,35 @@ export default function CustomStyles(){
         formPaper: {
             padding: theme.spacing(2),
             textAlign: 'center',
-            // border: "3px solid purple",
+            backgroundColor: 'rgb(44, 53, 57)',
+            border: "3px solid white",
+            color: "white",
+            '& label.Mui-focused': {
+                color: 'white',
+            },
+            '& .MuiOutlinedInput-root': {
+                color: 'white',
+                '& fieldset': {
+                    borderColor: 'white',
+                },
+                '&:hover fieldset': {
+                    borderColor: 'white',
+                },
+                '&.Mui-focused fieldset': {
+                    borderColor: 'white',
+                },
+            },
         },
+        controlLabel: {
+            backgroundColor: 'rgb(44, 53, 57)',
+            width: '50%',
+            margin: 'auto',
+            border: "3px solid white",
+            '& .MuiFormControlLabel-root': {
+                color: 'white',
+                backgroundColor: 'rgb(44, 53, 57)',
+            }
+        }
     }));
 
     return(

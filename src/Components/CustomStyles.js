@@ -64,6 +64,9 @@ export default function CustomStyles(){
         },
         delButton: {
             backgroundColor: "red",
+            '&:hover': {
+                backgroundColor: "darkred",
+            },
         },
         modal: {
             display: 'flex',

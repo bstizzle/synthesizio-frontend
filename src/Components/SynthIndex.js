@@ -37,9 +37,13 @@ function SynthIndex({ classes, synths, currentUser, onSetCurrentSynth, onLogout 
             <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <Paper className={classes.paper} elevation={10}>
-                        <Typography className={classes.typography} variant="h3">
-                            SYNTH INDEX
-                        </Typography>
+                        <Grid item xs={12}>
+                            <Paper className={classes.formPaper} elevation={10}>
+                                <Typography className={classes.typography} variant="h3">
+                                    SYNTH INDEX
+                                </Typography>
+                            </Paper>
+                        </Grid>
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>

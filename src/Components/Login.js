@@ -77,9 +77,13 @@ function Login({ classes, handleAuthLogin, loggedIn }) {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Paper className={classes.paper} elevation={10}>
-                        <Typography className={classes.typography} variant="h1">
-                            Welcome to Synthesiz.io!
-                        </Typography>
+                        <Grid item xs={12}>
+                            <Paper className={classes.formPaper} elevation={10}>
+                                <Typography className={classes.typography} variant="h1">
+                                    Welcome to Synthesiz.io!
+                                </Typography>
+                            </Paper>
+                        </Grid>
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>

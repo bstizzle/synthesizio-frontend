@@ -277,9 +277,13 @@ class SynthEditor extends Component {
                 <Grid container direction="row" justify="center" alignItems="stretch" spacing={2}>
                     <Grid item xs={6}>
                         <Paper className={this.classes.paper} elevation={10}>
-                            <Typography className={this.classes.typography} variant="h3">
-                                SYNTH EDITOR
-                            </Typography>
+                            <Grid item xs={12}>
+                                <Paper className={this.classes.formPaper} elevation={10}>
+                                    <Typography className={this.classes.typography} variant="h3">
+                                        SYNTH EDITOR
+                                    </Typography>
+                                </Paper>
+                            </Grid>
                         </Paper>
                     </Grid>
                     <Grid item xs={2}>

@@ -45,9 +45,13 @@ function UserPage({ classes, onSetCurrentSynth, currentUser, synths, onSetSynths
             <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <Paper className={classes.paper} elevation={10}>
-                        <Typography className={classes.typography} variant="h3">
-                            {currentUser.username}'s synths
-                        </Typography>
+                        <Grid item xs={12}>
+                            <Paper className={classes.formPaper} elevation={10}>
+                                <Typography className={classes.typography} variant="h3">
+                                    {currentUser.username}'s synths
+                                </Typography>
+                            </Paper>
+                        </Grid>
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>

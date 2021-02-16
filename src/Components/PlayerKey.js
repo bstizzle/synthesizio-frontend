@@ -114,7 +114,7 @@ function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTon
 
 
     return(
-        <div className={keyClass} data-id={index} onMouseDown={keyPressed} onMouseOver={keyPressed} onMouseLeave={keyReleased} onMouseUp={keyReleased} >
+        <div className={keyClass} data-id={index} onMouseDown={keyPressed} onMouseLeave={keyReleased} onMouseUp={keyReleased} >
             <div className="key-label">
                 {noteLabel === note ? noteLabel : noteAccents}
                 <br></br>

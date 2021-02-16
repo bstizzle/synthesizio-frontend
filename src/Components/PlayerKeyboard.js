@@ -14,7 +14,7 @@ function PlayerKeyboard({ synth, classes }){
     masterGainNode.gain.value = 0;
 
     let attackTime = 1;
-    let releaseTime = 4;
+    let releaseTime = 1;
 
     const fullKeyboard = keyList.map(key => {
         const keyIndex = parseInt(key[0], 10)
@@ -39,8 +39,8 @@ function PlayerKeyboard({ synth, classes }){
     }
 
     function stopTone(osc) {
-        masterGainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + releaseTime);
-        setTimeout(function(){osc.stop()}, (releaseTime) * 1000)
+        masterGainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + attackTime + releaseTime);
+        setTimeout(function(){osc.stop()}, (attackTime + releaseTime) * 1000)
     }
 
     return(

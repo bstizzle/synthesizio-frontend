@@ -99,7 +99,7 @@ class SynthEditor extends Component {
 
     handleMute = () => {
         this.attackTime = 1;
-        this.releaseTime = 4;
+        this.releaseTime = 1;
         if(this.state.mute === false){
             this.oscGain.gain.cancelScheduledValues(this.audioContext.currentTime);
             this.oscGain.gain.linearRampToValueAtTime(0, this.audioContext.currentTime + this.attackTime + this.releaseTime);

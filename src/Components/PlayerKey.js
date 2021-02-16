@@ -100,17 +100,16 @@ function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTon
         let dataset = event.target.dataset;
       
         if (dataset && dataset["pressed"]) {
+            delete dataset["pressed"];
             oscList.forEach((osc) => {
                 osc.stop();
             })
-        
-          delete dataset["pressed"];
         }
       }
 
 
     return(
-        <div className={keyClass} data-id={index} onMouseDown={keyPressed} onMouseOver={keyPressed} onMouseLeave={keyReleased} onMouseUp={keyReleased} >
+        <div className={keyClass} data-id={index} onMouseDown={keyPressed} onMouseLeave={keyReleased} onMouseUp={keyReleased} >
             <div className="key-label">
                 {noteLabel === note ? noteLabel : noteAccents}
                 <br></br>

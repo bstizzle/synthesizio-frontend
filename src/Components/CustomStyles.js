@@ -118,7 +118,7 @@ export default function CustomStyles(){
         },
         controlLabel: {
             backgroundColor: 'rgb(44, 53, 57)',
-            width: '50%',
+            width: '30%',
             margin: 'auto',
             border: "3px solid white",
             '& .MuiFormControlLabel-root': {

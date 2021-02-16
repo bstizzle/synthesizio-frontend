@@ -69,11 +69,19 @@ function App() {
       </Route>
       
       <Route path='/syntheditor'>
-        <SynthEditor classes={classes} history={history} synth={currentSynth} currentUser={currentUser} synths={synths} loggedIn={loggedIn} onLogout={handleLogout} />
+        {(currentSynth !== undefined && currentUser !== undefined) ?
+          <SynthEditor classes={classes} history={history} synth={currentSynth} currentUser={currentUser} synths={synths} loggedIn={loggedIn} onLogout={handleLogout} />
+          :
+          <Login classes={classes} handleAuthLogin={handleLogin} loggedIn={loggedIn} />
+        }
       </Route>
 
       <Route path='/userpage'>
-        <UserPage classes={classes} onSetCurrentSynth={setCurrentSynth} onSetSynths={setSynths} currentUser={currentUser} synths={synths} loggedIn={loggedIn} onLogout={handleLogout} />
+        {currentUser !== undefined ?
+          <UserPage classes={classes} onSetCurrentSynth={setCurrentSynth} onSetSynths={setSynths} currentUser={currentUser} synths={synths} loggedIn={loggedIn} onLogout={handleLogout} />
+          :
+          <Login classes={classes} handleAuthLogin={handleLogin} loggedIn={loggedIn} />
+        }
       </Route>
 
       <Route path='/index'>

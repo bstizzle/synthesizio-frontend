@@ -5,7 +5,7 @@ function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTon
     let noteLabel;
     let noteAccents;
     let octave;
-    let oscList;
+    let oscList = [];
     let keyClass = "white-key";
     //change key div class for black keys
     if(note.includes("C#") || note.includes("D#") || note.includes("F#") || note.includes("G#") || note.includes("A#")){
@@ -91,7 +91,9 @@ function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTon
             if (!dataset["pressed"]) {
                 dataset["pressed"] = "yes";
                 let secondFreq = getSecondFreq(index)
-                oscList = playTone(frequency, secondFreq, type1, type2)
+                oscList.push(playTone(frequency, type1))
+                oscList.push(playTone(secondFreq, type2))
+                console.log(oscList)
             }
         }
     }
@@ -100,16 +102,19 @@ function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTon
         let dataset = event.target.dataset;
       
         if (dataset && dataset["pressed"]) {
-            delete dataset["pressed"];
             oscList.forEach((osc) => {
                 osc.stop();
             })
+            oscList.shift()
+            oscList.shift()
+            delete dataset["pressed"];
+            console.log(oscList)
         }
       }
 
 
     return(
-        <div className={keyClass} data-id={index} onMouseDown={keyPressed} onMouseLeave={keyReleased} onMouseUp={keyReleased} >
+        <div className={keyClass} data-id={index} onMouseDown={keyPressed} onMouseOver={keyPressed} onMouseLeave={keyReleased} onMouseUp={keyReleased} >
             <div className="key-label">
                 {noteLabel === note ? noteLabel : noteAccents}
                 <br></br>

@@ -20,23 +20,18 @@ function PlayerKeyboard({ synth, classes }){
         return <PlayerKey playTone={playTone} key={keyIndex} index={keyIndex} note={key[1]} frequency={keyFreq} freq1={synth.osc_freq_1} freq2={synth.osc_freq_2} type1={synth.osc_type_1} type2={synth.osc_type_2}/>;
     });
 
-    function playTone(freq1, freq2, type1, type2) {
-        let osc1 = audioContext.createOscillator();
-        let osc2 = audioContext.createOscillator();
+    function playTone(freq, type) {
+        let osc = audioContext.createOscillator();
 
-        osc1.connect(masterGainNode);
-        osc2.connect(masterGainNode);
+        osc.connect(masterGainNode);
 
-        osc1.type = type1
-        osc2.type = type2
+        osc.type = type
 
-        osc1.frequency.value = freq1
-        osc2.frequency.value = freq2
+        osc.frequency.value = freq
 
-        osc1.start();
-        osc2.start();
+        osc.start();
 
-        return [osc1, osc2];
+        return osc;
     }
 
     return(

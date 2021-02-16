@@ -81,7 +81,7 @@ function App() {
       </Route>
 
       <Route path='/player'>
-        <PlayerKeyboard synth={currentSynth} classes={classes} />
+        <PlayerKeyboard synth={currentSynth} classes={classes} onLogout={handleLogout} />
       </Route>
     </div>
   );

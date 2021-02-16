@@ -54,7 +54,7 @@ class SynthEditor extends Component {
     handleSynthSubmit = () => {
         if(this.synth.id) {
             //if the synth being edited belongs to the user, patch, if it doesnt, post a copy belonging to the user
-            if(this.synth.user_id === this.props.currentUser.id){
+            if(this.synth.user.id === this.props.currentUser.id){
                 fetch(`${process.env.REACT_APP_API_BASE_URL}/synths/${this.synth.id}`, {
                     method: 'PATCH',
                     headers: {

@@ -1,18 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PlayerKey from "./PlayerKey";
 import InfoModal from "./InfoModal";
 import { freqTones } from "./HashMaps";
-import AudioVisualiser from "./AudioVisualiser";
+// import AudioVisualiser from "./AudioVisualiser";
 
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
-function PlayerKeyboard({ synth, classes }){
+function PlayerKeyboard({ synth, classes, onLogout }){
     const [selectedOctave, setSelectedOctave] = useState(3)
-    const [audioData, setAudioData] = useState(new Uint8Array(0))
+    // const [audioData, setAudioData] = useState(new Uint8Array(0))
+
+    const history = useHistory();
 
     let range;
 
@@ -21,11 +26,11 @@ function PlayerKeyboard({ synth, classes }){
 
     let audioContext = new (window.AudioContext || window.webkitAudioContext)();
     let masterGainNode = audioContext.createGain();
-    let analyser = audioContext.createAnalyser();
-    let dataArray = new Uint8Array(analyser.frequencyBinCount);
+    // let analyser = audioContext.createAnalyser();
+    // let dataArray = new Uint8Array(analyser.frequencyBinCount);
 
     masterGainNode.connect(audioContext.destination);
-    masterGainNode.connect(analyser);
+    // masterGainNode.connect(analyser);
     masterGainNode.gain.value = 0;
 
     let attackTime = 1;
@@ -72,6 +77,18 @@ function PlayerKeyboard({ synth, classes }){
         setTimeout(function(){osc.stop()}, (attackTime + releaseTime) * 1000)
     }
 
+    function handleLogout(){
+        onLogout()
+    };
+
+    function handleUserRoute(){
+        history.push('/userpage')
+    };
+
+    function handleEditorRoute(){
+        history.push('/syntheditor')
+    };
+
     // useEffect(() => {
     //     analyser.getByteTimeDomainData(dataArray)
     //     setAudioData(dataArray)
@@ -80,6 +97,28 @@ function PlayerKeyboard({ synth, classes }){
     return(
         <div className="page-container">
             <Grid container direction="row" justify="center" alignItems="stretch" spacing={2}>
+                <Grid item xs={6}>
+                    <Paper className={classes.paper} elevation={10}>
+                        <Typography className={classes.typography} variant="h3">
+                            {synth.name}
+                        </Typography>
+                    </Paper>
+                </Grid>
+                <Grid item xs={2}>
+                    <Paper className={classes.paper} elevation={10}>
+                        <Button onClick={handleEditorRoute} variant="outlined" className={classes.editButton}>Editor</Button>
+                    </Paper>
+                </Grid>
+                <Grid item xs={2}>
+                    <Paper className={classes.paper} elevation={10}>
+                        <Button onClick={handleUserRoute} variant="outlined" className={classes.editButton}>User Page</Button>
+                    </Paper>
+                </Grid>
+                <Grid item xs={2}>
+                    <Paper className={classes.paper} elevation={10}>
+                        <Button onClick={handleLogout} variant="outlined" className={classes.editButton}>Logout Button</Button>
+                    </Paper>
+                </Grid>
                 {/* <Grid item xs={12}>
                     <Paper className={classes.paper} elevation={10}>
                         <InfoModal classes={classes} topic="Audio Visualiser" />

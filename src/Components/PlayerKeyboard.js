@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PlayerKey from "./PlayerKey";
 import InfoModal from "./InfoModal";
 import { freqTones } from "./HashMaps";
 
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 function PlayerKeyboard({ synth, classes }){
-    console.log(synth)
+    const [selectedOctave, setSelectedOctave] = useState(3)
+    let range;
+
     const keyList = Object.entries(freqTones)
     const twelfthTwo = Math.pow(2, 1/12);
 
@@ -22,6 +28,20 @@ function PlayerKeyboard({ synth, classes }){
 
         return <PlayerKey playTone={playTone} stopTone={stopTone} key={keyIndex} index={keyIndex} note={key[1]} frequency={keyFreq} freq1={synth.osc_freq_1} freq2={synth.osc_freq_2} type1={synth.osc_type_1} type2={synth.osc_type_2}/>;
     });
+
+    function getOctaveKeyIndexes(){
+        //set an array of lowest key index and highest key index of selected octave (12 notes)
+        range = [(selectedOctave*12), ((selectedOctave*12)+12)]
+    }
+
+    getOctaveKeyIndexes();
+
+    const octaveKeys = []
+    
+    for(let i = range[0]; i < range[1]; i++){
+        octaveKeys.push(fullKeyboard[i])
+    }
+
 
     function playTone(freq, type) {
         let osc = audioContext.createOscillator();
@@ -45,12 +65,28 @@ function PlayerKeyboard({ synth, classes }){
 
     return(
         <div className="keyboard-div">
-            <InfoModal classes={classes} topic="Keyboard" />
+            <InfoModal classes={classes} topic="Player Keyboard" />
             <div className="keyboard-container">
                 <div className="keyboard">
-                    {fullKeyboard}
+                    {octaveKeys}
                 </div>
             </div>
+            <FormControl className={classes.formControl}>
+                <InputLabel>Choost Octave:</InputLabel>
+                <Select
+                    native
+                    value={selectedOctave}
+                    onChange={e => setSelectedOctave(e.target.value)}
+                >
+                <option value={0}>0</option>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+                <option value={6}>6</option>
+                </Select>
+            </FormControl>
         </div>
     );
 }

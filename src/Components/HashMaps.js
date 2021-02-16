@@ -89,3 +89,18 @@ export const freqTones = {
     "87": "C",
     "88": "C#/Db",
 }
+
+export const noteKeys = {
+    "A": 'a',
+    "A#/Bb": 'w',
+    "B": 's',
+    "C": 'd',
+    "C#/Db": 'r',
+    "D": 'f',
+    "D#/Eb": 't',
+    "E": 'g',
+    "F": 'h',
+    "F#/Gb": 'u',
+    "G": 'j',
+    "G#/Ab": 'i',
+}

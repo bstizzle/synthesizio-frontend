@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { noteKeys } from './HashMaps';
 
 function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTone, stopTone }){
     const twelfthTwo = Math.pow(2, 1/12);
@@ -84,13 +85,15 @@ function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTon
 
     const oscInterval = getOscInterval(freq1, freq2)
 
-    function keyPressed(event) {
+    const secondFreq = getSecondFreq(index)
+
+    //upon keypress, run our oscillator creation and attack envelope function
+    function notePressed(event) {
         if (event.buttons & 1) {
             let dataset = event.target.dataset;
         
             if (!dataset["pressed"]) {
                 dataset["pressed"] = "yes";
-                let secondFreq = getSecondFreq(index)
                 oscList.push(playTone(frequency, type1))
                 oscList.push(playTone(secondFreq, type2))
                 console.log(oscList)
@@ -98,7 +101,8 @@ function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTon
         }
     }
 
-    function keyReleased(event) {
+    //upon keyrelease (both on mouseup and mouseleave) run our oscillator stop and release envelope function
+    function noteReleased(event) {
         let dataset = event.target.dataset;
       
         if (dataset && dataset["pressed"]) {
@@ -110,15 +114,59 @@ function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTon
             delete dataset["pressed"];
             console.log(oscList)
         }
-      }
+    }
 
+
+    function useKeyPress(targetKey) {
+        // State for keeping track of whether key is pressed
+        const [keyPressed, setKeyPressed] = useState(false);
+      
+        // If pressed key is our target key then set to true
+        function downHandler({ key }) {
+            if (key === targetKey) {
+                oscList.push(playTone(frequency, type1))
+                oscList.push(playTone(secondFreq, type2))
+                setKeyPressed(true);
+            }
+        }
+      
+        // If released key is our target key then set to false
+        const upHandler = ({ key }) => {
+            if (key === targetKey) {
+                oscList.forEach((osc) => {
+                    stopTone(osc)
+                })
+                oscList.shift()
+                oscList.shift()
+                setKeyPressed(false);
+            }
+        };
+      
+        // Add event listeners
+        useEffect(() => {
+            window.addEventListener('keydown', downHandler);
+            window.addEventListener('keyup', upHandler);
+            // Remove event listeners on cleanup
+            return () => {
+                window.removeEventListener('keydown', downHandler);
+                window.removeEventListener('keyup', upHandler);
+            };
+        }, []); // Empty array ensures that effect is only run on mount and unmount
+      
+        return keyPressed;
+    }
+
+    let keyName = noteKeys[note]
+    useKeyPress(keyName);
 
     return(
-        <div className={keyClass} data-id={index} onMouseDown={keyPressed} onMouseLeave={keyReleased} onMouseUp={keyReleased} >
+        <div className={keyClass} data-id={index} onMouseDown={notePressed} onMouseLeave={noteReleased} onMouseUp={noteReleased} >
             <div className="key-label">
                 {noteLabel === note ? noteLabel : noteAccents}
                 <br></br>
                 <sub>{octave}</sub>
+                <br></br>
+                <sub>{keyName}</sub>
             </div>
         </div>
     );

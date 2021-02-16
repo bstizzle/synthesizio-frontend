@@ -11,18 +11,20 @@ function PlayerKeyboard({ synth, classes }){
     let audioContext = new (window.AudioContext || window.webkitAudioContext)();
     let masterGainNode = audioContext.createGain();
     masterGainNode.connect(audioContext.destination);
-    masterGainNode.gain.value = synth.osc_gain;
+    masterGainNode.gain.value = 0;
+
+    let attackTime = 1;
+    let releaseTime = 4;
 
     const fullKeyboard = keyList.map(key => {
         const keyIndex = parseInt(key[0], 10)
         const keyFreq = Math.round((27.5 * Math.pow(twelfthTwo, keyIndex)) * 100)/100
 
-        return <PlayerKey playTone={playTone} key={keyIndex} index={keyIndex} note={key[1]} frequency={keyFreq} freq1={synth.osc_freq_1} freq2={synth.osc_freq_2} type1={synth.osc_type_1} type2={synth.osc_type_2}/>;
+        return <PlayerKey playTone={playTone} stopTone={stopTone} key={keyIndex} index={keyIndex} note={key[1]} frequency={keyFreq} freq1={synth.osc_freq_1} freq2={synth.osc_freq_2} type1={synth.osc_type_1} type2={synth.osc_type_2}/>;
     });
 
     function playTone(freq, type) {
         let osc = audioContext.createOscillator();
-
         osc.connect(masterGainNode);
 
         osc.type = type
@@ -30,8 +32,15 @@ function PlayerKeyboard({ synth, classes }){
         osc.frequency.value = freq
 
         osc.start();
+        masterGainNode.gain.cancelScheduledValues(audioContext.currentTime);
+        masterGainNode.gain.linearRampToValueAtTime(synth.osc_gain, audioContext.currentTime + attackTime)
 
         return osc;
+    }
+
+    function stopTone(osc) {
+        masterGainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + releaseTime);
+        setTimeout(function(){osc.stop()}, (releaseTime) * 1000)
     }
 
     return(

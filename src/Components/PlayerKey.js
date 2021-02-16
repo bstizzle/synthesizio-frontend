@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTone }){
+function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTone, stopTone }){
     const twelfthTwo = Math.pow(2, 1/12);
     let noteLabel;
     let noteAccents;
@@ -103,7 +103,7 @@ function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTon
       
         if (dataset && dataset["pressed"]) {
             oscList.forEach((osc) => {
-                osc.stop();
+                stopTone(osc)
             })
             oscList.shift()
             oscList.shift()

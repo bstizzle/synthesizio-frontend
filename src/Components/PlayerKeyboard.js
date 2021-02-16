@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PlayerKey from "./PlayerKey";
 import InfoModal from "./InfoModal";
 import { freqTones } from "./HashMaps";
+import AudioVisualiser from "./AudioVisualiser";
 
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 function PlayerKeyboard({ synth, classes }){
     const [selectedOctave, setSelectedOctave] = useState(3)
+    const [audioData, setAudioData] = useState(new Uint8Array(0))
+
     let range;
 
     const keyList = Object.entries(freqTones)
@@ -16,7 +21,11 @@ function PlayerKeyboard({ synth, classes }){
 
     let audioContext = new (window.AudioContext || window.webkitAudioContext)();
     let masterGainNode = audioContext.createGain();
+    let analyser = audioContext.createAnalyser();
+    let dataArray = new Uint8Array(analyser.frequencyBinCount);
+
     masterGainNode.connect(audioContext.destination);
+    masterGainNode.connect(analyser);
     masterGainNode.gain.value = 0;
 
     let attackTime = 1;
@@ -63,30 +72,49 @@ function PlayerKeyboard({ synth, classes }){
         setTimeout(function(){osc.stop()}, (attackTime + releaseTime) * 1000)
     }
 
+    // useEffect(() => {
+    //     analyser.getByteTimeDomainData(dataArray)
+    //     setAudioData(dataArray)
+    // }, [])
+
     return(
-        <div className="keyboard-div">
-            <InfoModal classes={classes} topic="Player Keyboard" />
-            <div className="keyboard-container">
-                <div className="keyboard">
-                    {octaveKeys}
-                </div>
-            </div>
-            <FormControl className={classes.formControl}>
-                <InputLabel>Choost Octave:</InputLabel>
-                <Select
-                    native
-                    value={selectedOctave}
-                    onChange={e => setSelectedOctave(e.target.value)}
-                >
-                <option value={0}>0</option>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-                <option value={4}>4</option>
-                <option value={5}>5</option>
-                <option value={6}>6</option>
-                </Select>
-            </FormControl>
+        <div className="page-container">
+            <Grid container direction="row" justify="center" alignItems="stretch" spacing={2}>
+                {/* <Grid item xs={12}>
+                    <Paper className={classes.paper} elevation={10}>
+                        <InfoModal classes={classes} topic="Audio Visualiser" />
+                        <AudioVisualiser classes={classes} audioData={dataArray} analyser={analyser} />
+                    </Paper>
+                </Grid> */}
+                <Grid item xs={12}>
+                    <Paper className={classes.paper} elevation={10}>
+                        <div className="keyboard-div">
+                            <InfoModal classes={classes} topic="Player Keyboard" />
+                            <div className="keyboard-container">
+                                <div className="keyboard">
+                                    {octaveKeys}
+                                </div>
+                            </div>
+                            <FormControl className={classes.formControl}>
+                                <InputLabel>Choost Octave:</InputLabel>
+                                <Select
+                                    native
+                                    value={selectedOctave}
+                                    onChange={e => setSelectedOctave(e.target.value)}
+                                >
+                                <option value={0}>0</option>
+                                <option value={1}>1</option>
+                                <option value={2}>2</option>
+                                <option value={3}>3</option>
+                                <option value={4}>4</option>
+                                <option value={5}>5</option>
+                                <option value={6}>6</option>
+                                </Select>
+                            </FormControl>
+                        </div>
+                    </Paper>
+                </Grid>
+            </Grid>
         </div>
     );
 }

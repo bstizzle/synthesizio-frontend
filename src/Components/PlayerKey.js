@@ -116,7 +116,7 @@ function PlayerKey({ note, frequency, index, freq1, freq2, type1, type2, playTon
         }
     }
 
-
+    //custom hook for handling key presses
     function useKeyPress(targetKey) {
         // State for keeping track of whether key is pressed
         const [keyPressed, setKeyPressed] = useState(false);

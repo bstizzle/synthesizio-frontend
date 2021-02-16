@@ -4,6 +4,8 @@ import Login from './Login';
 import SynthEditor from './SynthEditor';
 import UserPage from './UserPage';
 import SynthIndex from './SynthIndex';
+import PlayerKeyboard from './PlayerKeyboard';
+
 import CustomStyles from './CustomStyles';
 
 function App() {
@@ -76,6 +78,10 @@ function App() {
 
       <Route path='/index'>
         <SynthIndex classes={classes} synths={synths} currentUser={currentUser} onSetCurrentSynth={setCurrentSynth} loggedIn={loggedIn} onLogout={handleLogout} />
+      </Route>
+
+      <Route path='/player'>
+        <PlayerKeyboard synth={currentSynth} classes={classes} />
       </Route>
     </div>
   );

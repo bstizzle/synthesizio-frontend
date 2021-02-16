@@ -47,6 +47,10 @@ class SynthEditor extends Component {
         this.props.history.push('/userpage')
     };
 
+    handlePlayerRoute = () => {
+        this.props.history.push('/player')
+    }
+
     handleSynthSubmit = () => {
         if(this.synth.id) {
             //if the synth being edited belongs to the user, patch, if it doesnt, post a copy belonging to the user
@@ -278,12 +282,17 @@ class SynthEditor extends Component {
                             </Typography>
                         </Paper>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={2}>
+                        <Paper className={this.classes.paper} elevation={10}>
+                            <Button onClick={this.handlePlayerRoute} variant="outlined" className={this.classes.editButton}>Player</Button>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={2}>
                         <Paper className={this.classes.paper} elevation={10}>
                             <Button onClick={this.handleUserRoute} variant="outlined" className={this.classes.editButton}>User Page</Button>
                         </Paper>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={2}>
                         <Paper className={this.classes.paper} elevation={10}>
                             <Button onClick={this.handleLogout} variant="outlined" className={this.classes.editButton}>Logout Button</Button>
                         </Paper>

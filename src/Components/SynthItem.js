@@ -31,7 +31,7 @@ function SynthItem({ classes, synth, onSetCurrentSynth, onSynthDelete }) {
     //render all the user's synths with a button routing to the editor and a delete button
     return(
         <div className={classes.itemRoot}>
-            <Grid container item xs={12}>
+            <Grid item xs={12}>
                 <Paper className={classes.itemPaper} elevation={10}>
                     <Button onClick={handleEdit} variant="outlined" className={classes.editButton}>{synth.name}</Button>
                     <Button onClick={handleDelete} variant="outlined" className={classes.delButton}>X</Button>

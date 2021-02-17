@@ -69,7 +69,7 @@ function App() {
       </Route>
       
       <Route path='/syntheditor'>
-        {(currentSynth !== undefined && currentUser !== undefined) ?
+        {currentUser !== undefined ?
           <SynthEditor classes={classes} history={history} synth={currentSynth} currentUser={currentUser} synths={synths} loggedIn={loggedIn} onLogout={handleLogout} />
           :
           <Login classes={classes} handleAuthLogin={handleLogin} loggedIn={loggedIn} />

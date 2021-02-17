@@ -26,7 +26,14 @@ function SynthIndex({ classes, synths, currentUser, onSetCurrentSynth, onLogout 
          return (
              <Grid key={synth.id} item xs={4}>
                  <Paper key={synth.id} className={classes.paper}>
-                     <SynthItem key={synth.id} classes={classes} synth={synth} onSetCurrentSynth={onSetCurrentSynth} />
+                    <SynthItem key={synth.id} classes={classes} synth={synth} onSetCurrentSynth={onSetCurrentSynth} />
+                    <Grid key={synth.id} item xs={12}>
+                        <Paper key={synth.id} className={classes.formPaper}>
+                            <Typography className={classes.typography}>
+                                by: {synth.user.username}
+                            </Typography>
+                        </Paper>
+                    </Grid>
                  </Paper>
              </Grid>
          );

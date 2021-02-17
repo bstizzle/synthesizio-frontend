@@ -24,11 +24,11 @@ function SynthIndex({ classes, synths, currentUser, onSetCurrentSynth, onLogout 
  
      const synthList = otherSynths.map((synth) => {
          return (
-             <Grid key={synth.id} item xs={4}>
-                 <Paper key={synth.id} className={classes.paper}>
+             <Grid item xs={4}>
+                 <Paper className={classes.paper}>
                     <SynthItem key={synth.id} classes={classes} synth={synth} onSetCurrentSynth={onSetCurrentSynth} />
-                    <Grid key={synth.id} item xs={12}>
-                        <Paper key={synth.id} className={classes.formPaper}>
+                    <Grid item xs={12}>
+                        <Paper className={classes.formPaper}>
                             <Typography className={classes.typography}>
                                 by: {synth.user.username}
                             </Typography>

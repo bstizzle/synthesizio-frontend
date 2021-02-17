@@ -26,10 +26,23 @@ function PlayerKeyboard({ synth, classes, onLogout }){
 
     let audioContext = new (window.AudioContext || window.webkitAudioContext)();
     let masterGainNode = audioContext.createGain();
+    let distortion = audioContext.createWaveShaper(0);
+    if(synth.distortion_toggle === true){
+        if(synth.distortion_curve === 'soft'){
+            distortion.curve = softDistortionCurve(synth.distortion_gain);
+        }else {
+            distortion.curve = hardDistortionCurve(synth.distortion_gain)
+        }
+        masterGainNode.connect(distortion);
+        distortion.connect(audioContext.destination);
+    }else {
+        masterGainNode.connect(audioContext.destination)
+    }
     // let analyser = audioContext.createAnalyser();
     // let dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-    masterGainNode.connect(audioContext.destination);
+    masterGainNode.connect(distortion);
+    distortion.connect(audioContext.destination);
     // masterGainNode.connect(analyser);
     masterGainNode.gain.value = 0;
 
@@ -54,6 +67,32 @@ function PlayerKeyboard({ synth, classes, onLogout }){
     
     for(let i = range[0]; i < range[1]; i++){
         octaveKeys.push(fullKeyboard[i])
+    }
+
+    function softDistortionCurve( amount ) {
+        let k = (typeof amount === 'number' ? amount : 0);
+        let n_samples = 44100;
+        let curve = new Float32Array(n_samples);
+        let deg = Math.PI / 180;
+        let x;
+
+        for (let i = 0; i < n_samples; ++i ) {
+          x = i * 2 / n_samples - 1;
+          curve[i] = ( 3 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
+        }
+        return curve;
+    }
+
+    function hardDistortionCurve( amount ){
+        let k = amount;
+        let n_samples = 44100;
+        let curve = new Float32Array(n_samples);
+        let x;
+        for (let i = 0; i < n_samples; ++i ) {
+            x = i * 2 / n_samples - 1;
+            curve[i] = ((3 + k) * Math.sin(x) * Math.cos(x)) - 4;
+        }
+        return curve;
     }
 
 

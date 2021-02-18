@@ -46,8 +46,8 @@ function PlayerKeyboard({ synth, classes, onLogout }){
     // masterGainNode.connect(analyser);
     masterGainNode.gain.value = 0;
 
-    let attackTime = 1;
-    let releaseTime = 1;
+    let attackTime = 0.1;
+    let releaseTime = 0.5;
 
     const fullKeyboard = keyList.map(key => {
         const keyIndex = parseInt(key[0], 10)

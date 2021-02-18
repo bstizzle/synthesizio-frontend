@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-function SynthItem({ classes, synth, onSetCurrentSynth, onSynthDelete }) {
+function SynthItem({ classes, synth, onSetCurrentSynth, onSynthDelete, currentUser }) {
     const history = useHistory()
 
     //set the currentSynth state to the selected one from the list, and bring the params to the editor
@@ -34,7 +34,7 @@ function SynthItem({ classes, synth, onSetCurrentSynth, onSynthDelete }) {
             <Grid item xs={12}>
                 <Paper className={classes.itemPaper} elevation={10}>
                     <Button onClick={handleEdit} variant="outlined" className={classes.editButton}>{synth.name}</Button>
-                    <Button onClick={handleDelete} variant="outlined" className={classes.delButton}>X</Button>
+                    {currentUser.id === synth.user.id ? <Button onClick={handleDelete} variant="outlined" className={classes.delButton}>X</Button> : null}
                 </Paper>
             </Grid>
         </div>

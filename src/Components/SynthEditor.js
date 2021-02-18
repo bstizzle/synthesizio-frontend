@@ -48,6 +48,7 @@ class SynthEditor extends Component {
     };
 
     handlePlayerRoute = () => {
+        this.props.onSetCurrentSynth(this.synth)
         this.props.history.push('/player')
     }
 
@@ -98,8 +99,8 @@ class SynthEditor extends Component {
     //end of CRUD/routing methods
 
     handleMute = () => {
-        this.attackTime = 1;
-        this.releaseTime = 1;
+        this.attackTime = 0.1;
+        this.releaseTime = 0.5;
         if(this.state.mute === false){
             this.oscGain.gain.cancelScheduledValues(this.audioContext.currentTime);
             this.oscGain.gain.linearRampToValueAtTime(0, this.audioContext.currentTime + this.attackTime + this.releaseTime);

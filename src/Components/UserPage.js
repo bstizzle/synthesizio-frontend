@@ -37,7 +37,7 @@ function UserPage({ classes, onSetCurrentSynth, currentUser, synths, onSetSynths
     })
 
     const synthItems = userSynths.map((synth) => {
-        return <SynthItem onSynthDelete={handleSynthDelete} classes={classes} key={synth.id} synth={synth} onSetCurrentSynth={onSetCurrentSynth} />;
+        return <SynthItem onSynthDelete={handleSynthDelete} currentUser={currentUser} classes={classes} key={synth.id} synth={synth} onSetCurrentSynth={onSetCurrentSynth} />;
     })
 
     return(

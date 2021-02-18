@@ -172,7 +172,7 @@ function PlayerKeyboard({ synth, classes, onLogout }){
                     <Paper className={classes.paper} elevation={10}>
                         <div className="keyboard-div">
                             <InfoModal classes={classes} topic="Player Keyboard" />
-                            <div className="keyboard-container">
+                            <div className="p-keyboard-container">
                                 <div className="keyboard">
                                     {octaveKeys}
                                 </div>

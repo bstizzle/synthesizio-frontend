@@ -9,6 +9,9 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import MusicOffIcon from '@material-ui/icons/MusicOff';
+import KeyboardIcon from '@material-ui/icons/Keyboard';
 
 class SynthEditor extends Component {
     constructor(props) {
@@ -289,7 +292,7 @@ class SynthEditor extends Component {
                     </Grid>
                     <Grid item xs={2}>
                         <Paper className={this.classes.paper} elevation={10}>
-                            <Button onClick={this.handlePlayerRoute} variant="outlined" className={this.classes.editButton}>Player</Button>
+                            <Button onClick={this.handlePlayerRoute} variant="outlined" className={this.classes.editButton}><KeyboardIcon/> Player</Button>
                         </Paper>
                     </Grid>
                     <Grid item xs={2}>
@@ -312,7 +315,9 @@ class SynthEditor extends Component {
 
                     <Grid item xs={12}>
                         <Paper className={this.classes.paper} elevation={10}>
-                            <Button onClick={this.handleMute} variant="outlined" className={this.classes.editButton}>Mute</Button>
+                            <Button onClick={this.handleMute} variant="outlined" className={this.classes.editButton}>
+                                {this.state.mute ? <MusicNoteIcon/> : <MusicOffIcon/>}{this.state.mute ? "Play" : "Mute"}{this.state.mute ? <MusicNoteIcon/> : <MusicOffIcon/>}
+                            </Button>
                         </Paper>
                     </Grid>
 

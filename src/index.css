@@ -84,6 +84,14 @@ code {
   margin: auto;
 }
 
+.p-keyboard-container {
+  overflow-y: hidden;
+  width: 70%;
+  height: 70%;
+  white-space: nowrap;
+  margin: auto;
+}
+
 .keyboard-div {
   background-color: rgb(44, 53, 57);
   padding-top: 15px;

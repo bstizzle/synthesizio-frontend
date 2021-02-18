@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 function SynthItem({ classes, synth, onSetCurrentSynth, onSynthDelete, currentUser }) {
     const history = useHistory()
@@ -34,7 +35,7 @@ function SynthItem({ classes, synth, onSetCurrentSynth, onSynthDelete, currentUs
             <Grid item xs={12}>
                 <Paper className={classes.itemPaper} elevation={10}>
                     <Button onClick={handleEdit} variant="outlined" className={classes.editButton}>{synth.name}</Button>
-                    {currentUser.id === synth.user.id ? <Button onClick={handleDelete} variant="outlined" className={classes.delButton}>X</Button> : null}
+                    {currentUser.id === synth.user.id ? <Button onClick={handleDelete} variant="outlined" className={classes.delButton}><DeleteForeverIcon/></Button> : null}
                 </Paper>
             </Grid>
         </div>

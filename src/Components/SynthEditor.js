@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import MusicOffIcon from '@material-ui/icons/MusicOff';
 import KeyboardIcon from '@material-ui/icons/Keyboard';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PersonIcon from '@material-ui/icons/Person';
 
 class SynthEditor extends Component {
     constructor(props) {
@@ -292,17 +294,17 @@ class SynthEditor extends Component {
                     </Grid>
                     <Grid item xs={2}>
                         <Paper className={this.classes.paper} elevation={10}>
-                            <Button onClick={this.handlePlayerRoute} variant="outlined" className={this.classes.editButton}><KeyboardIcon/> Player</Button>
+                            <Button onClick={this.handlePlayerRoute} variant="outlined" className={this.classes.editButton}><KeyboardIcon/>Player</Button>
                         </Paper>
                     </Grid>
                     <Grid item xs={2}>
                         <Paper className={this.classes.paper} elevation={10}>
-                            <Button onClick={this.handleUserRoute} variant="outlined" className={this.classes.editButton}>User Page</Button>
+                            <Button onClick={this.handleUserRoute} variant="outlined" className={this.classes.editButton}><PersonIcon/>User Page</Button>
                         </Paper>
                     </Grid>
                     <Grid item xs={2}>
                         <Paper className={this.classes.paper} elevation={10}>
-                            <Button onClick={this.handleLogout} variant="outlined" className={this.classes.editButton}>Logout Button</Button>
+                            <Button onClick={this.handleLogout} variant="outlined" className={this.classes.editButton}><ExitToAppIcon/>Logout</Button>
                         </Paper>
                     </Grid>
 

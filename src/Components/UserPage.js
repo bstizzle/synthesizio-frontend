@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 function UserPage({ classes, onSetCurrentSynth, currentUser, synths, onSetSynths, onLogout }) {
     const history = useHistory()
@@ -56,7 +57,7 @@ function UserPage({ classes, onSetCurrentSynth, currentUser, synths, onSetSynths
                 </Grid>
                 <Grid item xs={6}>
                     <Paper className={classes.paper} elevation={10}>
-                        <Button onClick={handleLogout} variant="outlined" className={classes.editButton}>Logout Button</Button>
+                        <Button onClick={handleLogout} variant="outlined" className={classes.editButton}><ExitToAppIcon/>Logout</Button>
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>

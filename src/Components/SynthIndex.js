@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PersonIcon from '@material-ui/icons/Person';
 
 function SynthIndex({ classes, synths, currentUser, onSetCurrentSynth, onLogout }) {
     const history = useHistory()
@@ -55,12 +57,12 @@ function SynthIndex({ classes, synths, currentUser, onSetCurrentSynth, onLogout 
                 </Grid>
                 <Grid item xs={3}>
                     <Paper className={classes.paper} elevation={10}>
-                        <Button onClick={handleUserRoute} variant="outlined" className={classes.editButton}>User Page</Button>
+                        <Button onClick={handleUserRoute} variant="outlined" className={classes.editButton}><PersonIcon/>User Page</Button>
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
                     <Paper className={classes.paper} elevation={10}>
-                        <Button onClick={handleLogout} variant="outlined" className={classes.editButton}>Logout Button</Button>
+                        <Button onClick={handleLogout} variant="outlined" className={classes.editButton}><ExitToAppIcon/>Logout</Button>
                     </Paper>
                 </Grid>
                 {synthList}

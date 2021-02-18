@@ -12,6 +12,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PersonIcon from '@material-ui/icons/Person';
 
 function PlayerKeyboard({ synth, classes, onLogout }){
     const [selectedOctave, setSelectedOctave] = useState(3)
@@ -154,12 +156,12 @@ function PlayerKeyboard({ synth, classes, onLogout }){
                 </Grid>
                 <Grid item xs={2}>
                     <Paper className={classes.paper} elevation={10}>
-                        <Button onClick={handleUserRoute} variant="outlined" className={classes.editButton}>User Page</Button>
+                        <Button onClick={handleUserRoute} variant="outlined" className={classes.editButton}><PersonIcon/>User Page</Button>
                     </Paper>
                 </Grid>
                 <Grid item xs={2}>
                     <Paper className={classes.paper} elevation={10}>
-                        <Button onClick={handleLogout} variant="outlined" className={classes.editButton}>Logout Button</Button>
+                        <Button onClick={handleLogout} variant="outlined" className={classes.editButton}><ExitToAppIcon/>Logout</Button>
                     </Paper>
                 </Grid>
                 {/* <Grid item xs={12}>

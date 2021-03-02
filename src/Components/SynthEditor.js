@@ -41,7 +41,7 @@ class SynthEditor extends Component {
         this.state = { audioData: new Uint8Array(0), mute: true };
         this.tick = this.tick.bind(this);
         this.classes = this.props.classes
-        this.url = process.env.NODE_ENV === 'production' ? "https://synthesizio-backend.herokuapp.com/" : "http://localhost:3000"
+        this.url = process.env.NODE_ENV === 'production' ? "https://synthesizio-backend.herokuapp.com" : "http://localhost:3000"
     };
 
     //CRUD/routing methods

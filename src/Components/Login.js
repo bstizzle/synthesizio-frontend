@@ -13,7 +13,7 @@ function Login({ classes, handleAuthLogin, loggedIn }) {
     const [newUsername, setNewUsername] = useState("")
     const [newPassword, setNewPassword] = useState("")
 
-    const url = process.env.NODE_ENV === 'production' ? "https://synthesizio-backend.herokuapp.com/" : "http://localhost:3000"
+    const url = process.env.NODE_ENV === 'production' ? "https://synthesizio-backend.herokuapp.com" : "http://localhost:3000"
 
     const history = useHistory()
 

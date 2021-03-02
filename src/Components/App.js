@@ -14,7 +14,7 @@ function App() {
   const [currentSynth, setCurrentSynth] = useState()
   const [loggedIn, setLoggedIn] = useState(false)
   const history = useHistory();
-  const url = process.env.NODE_ENV === 'production' ? "https://synthesizio-backend.herokuapp.com/" : "http://localhost:3000"
+  const url = process.env.NODE_ENV === 'production' ? "https://synthesizio-backend.herokuapp.com" : "http://localhost:3000"
 
   useEffect(() => {
     fetch(`${url}/synths`)

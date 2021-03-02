@@ -8,6 +8,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 function SynthItem({ classes, synth, onSetCurrentSynth, onSynthDelete, currentUser }) {
     const history = useHistory()
+    const url = process.env.NODE_ENV === 'production' ? "https://synthesizio-backend.herokuapp.com/" : "http://localhost:3000"
 
     //set the currentSynth state to the selected one from the list, and bring the params to the editor
     function handleEdit(){
@@ -16,7 +17,7 @@ function SynthItem({ classes, synth, onSetCurrentSynth, onSynthDelete, currentUs
     }
 
     function handleDelete(){
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/synths/${synth.id}`, {
+        fetch(`${url}/synths/${synth.id}`, {
             method: 'DELETE',
             headers: {
             'Content-Type': 'application/json',

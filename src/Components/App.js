@@ -14,9 +14,10 @@ function App() {
   const [currentSynth, setCurrentSynth] = useState()
   const [loggedIn, setLoggedIn] = useState(false)
   const history = useHistory();
+  const url = process.env.NODE_ENV === 'production' ? "https://synthesizio-backend.herokuapp.com/" : "http://localhost:3000"
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/synths`)
+    fetch(`${url}/synths`)
       .then(resp => resp.json())
       .then(data => {
         console.log(data)
@@ -30,7 +31,7 @@ function App() {
   }
 
   function handleLogout(){
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/logout`, {
+    fetch(`${url}/logout`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -47,7 +48,7 @@ function App() {
   }
 
   const loginStatus = () => {
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/logged_in`, {credentials: 'include'})  
+    fetch(`${url}/logged_in`, {credentials: 'include'})  
       .then(resp => resp.json())  
       .then(response => {
         if (response.logged_in) {

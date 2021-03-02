@@ -13,6 +13,8 @@ function Login({ classes, handleAuthLogin, loggedIn }) {
     const [newUsername, setNewUsername] = useState("")
     const [newPassword, setNewPassword] = useState("")
 
+    const url = process.env.NODE_ENV === 'production' ? "https://synthesizio-backend.herokuapp.com/" : "http://localhost:3000"
+
     const history = useHistory()
 
     useEffect(() => {
@@ -24,7 +26,7 @@ function Login({ classes, handleAuthLogin, loggedIn }) {
     function handleLogin(event){
         event.preventDefault()
             
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/login`, {
+        fetch(`${url}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -49,7 +51,7 @@ function Login({ classes, handleAuthLogin, loggedIn }) {
     
     function handleSignup(event){
         event.preventDefault();
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/users`, {
+        fetch(`${url}/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -41,6 +41,7 @@ class SynthEditor extends Component {
         this.state = { audioData: new Uint8Array(0), mute: true };
         this.tick = this.tick.bind(this);
         this.classes = this.props.classes
+        this.url = process.env.NODE_ENV === 'production' ? "https://synthesizio-backend.herokuapp.com/" : "http://localhost:3000"
     };
 
     //CRUD/routing methods
@@ -61,7 +62,7 @@ class SynthEditor extends Component {
         if(this.synth.id) {
             //if the synth being edited belongs to the user, patch, if it doesnt, post a copy belonging to the user
             if(this.synth.user.id === this.props.currentUser.id){
-                fetch(`${process.env.REACT_APP_API_BASE_URL}/synths/${this.synth.id}`, {
+                fetch(`${this.url}/synths/${this.synth.id}`, {
                     method: 'PATCH',
                     headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +72,7 @@ class SynthEditor extends Component {
                 .then(resp => resp.json())
                 .then(alert("Synth Saved!"))
             }else{
-                fetch(`${process.env.REACT_APP_API_BASE_URL}/synths`, {
+                fetch(`${this.url}/synths`, {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json',
@@ -86,7 +87,7 @@ class SynthEditor extends Component {
                 })
             }
         }else {
-            fetch(`${process.env.REACT_APP_API_BASE_URL}/synths`, {
+            fetch(`${this.url}/synths`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',

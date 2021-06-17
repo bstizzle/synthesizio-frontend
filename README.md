@@ -18,16 +18,13 @@ Planned synth features:
 * More effects (flange, tremolo, etc)
 
 Current site features:
-* Can sign up as a new user or log in as existing
-    * Authorization is currently fake, when signing up the database will correctly encrypt/salt your password, but when logging in it only checks your username
+* Can sign up as a new user or log in as existing, with auth using sessions
 * Can create new synthesizer settings and save them to your account
 * Can open saved settings to play with and edit them
-* Can click on the labels for aspects of the synth to see descriptions of each one
+* Can click on the labels for aspects of the synth to see descriptions of each parameter
 * Can delete synth settings from your account
-
-Planned site features:
 * Can browse, play with, and save to your account other users' synths
-* Add computer keyboard and/or MIDI keyboard control to the in-browser synth keyboard
+* Can play the synthesizer either with an 88-key point-and-click keyboard, or with a one octave player using your computer keyboard
 
 ## Setup
 

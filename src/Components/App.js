@@ -94,7 +94,11 @@ function App() {
       </Route>
 
       <Route path='/player'>
-        <PlayerKeyboard synth={currentSynth} classes={classes} onLogout={handleLogout} />
+        {currentUser !== undefined ? 
+          <PlayerKeyboard synth={currentSynth} classes={classes} onLogout={handleLogout} />
+          :
+          <Login classes={classes} handleAuthLogin={handleLogin} loggedIn={loggedIn} />
+        }
       </Route>
     </div>
   );

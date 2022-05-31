@@ -12,6 +12,7 @@ function Login({ classes, handleAuthLogin, loggedIn }) {
     const [password, setPassword] = useState("")
     const [newUsername, setNewUsername] = useState("")
     const [newPassword, setNewPassword] = useState("")
+    const [loginSwitch, setLoginSwitch] = useState("login")
 
     const url = process.env.NODE_ENV === 'production' ? "https://synthesizio-backend.herokuapp.com" : "http://localhost:3000"
 
@@ -74,6 +75,15 @@ function Login({ classes, handleAuthLogin, loggedIn }) {
             })
     }
 
+    function handleSwitch(){
+      if(loginSwitch === "login"){
+        setLoginSwitch("signup")
+      }
+      else{
+        setLoginSwitch("login")
+      }
+    }
+
     return(
         <div className="page-container">
             <Grid container spacing={2}>
@@ -88,17 +98,19 @@ function Login({ classes, handleAuthLogin, loggedIn }) {
                         </Grid>
                     </Paper>
                 </Grid>
-                <Grid item xs={6}>
+                {loginSwitch === "login" ?
+                  <Grid item xs={12}>
                     <Paper className={classes.paper} elevation={10}>
-                        <form onSubmit={handleLogin} className={classes.root} noValidate autoComplete="off">
-                            <TextField label="Username" variant="outlined" value={username} onChange={e => setUsername(e.target.value)} />
-                            <TextField label="Password" type='password' variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
-                            <br></br>
-                            <Button type='submit' variant="outlined" className={classes.loginButton}>Login</Button>
-                        </form>
+                      <form onSubmit={handleLogin} className={classes.root} noValidate autoComplete="off">
+                          <TextField label="Username" variant="outlined" value={username} onChange={e => setUsername(e.target.value)} />
+                          <TextField label="Password" type='password' variant="outlined" value={password} onChange={e => setPassword(e.target.value)} />
+                          <br></br>
+                          <Button type='submit' variant="outlined" className={classes.loginButton}>Login</Button>
+                      </form>
                     </Paper>
-                </Grid>
-                <Grid item xs={6}>
+                  </Grid>
+                  :
+                  <Grid item xs={12}>
                     <Paper className={classes.paper} elevation={10}>
                         <form onSubmit={handleSignup} className={classes.root} noValidate autoComplete="off">
                             <TextField label="Username" variant="outlined" value={newUsername} onChange={e => setNewUsername(e.target.value)} />
@@ -107,6 +119,14 @@ function Login({ classes, handleAuthLogin, loggedIn }) {
                             <Button type='submit' variant="outlined" className={classes.loginButton}>Signup</Button>
                         </form>
                     </Paper>
+                  </Grid>
+                }
+                <Grid item xs={12}>
+                  <Paper className={classes.paper} elevation={10}>
+                    <Button type="submit" variant="outlined" className={classes.loginButton} onClick={handleSwitch}>
+                      {loginSwitch === "login" ? "Sign Up?" : "Log In?"}
+                    </Button>
+                  </Paper>
                 </Grid>
             </Grid>
         </div>
